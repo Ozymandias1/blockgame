@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6rjnkmuycudp"]
+
+[ext_resource type="Script" path="res://Scripts/Option.gd" id="1_nmqcu"]
+
+[node name="Option" type="CenterContainer"]
+offset_right = 250.0
+offset_bottom = 93.0
+script = ExtResource("1_nmqcu")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBox_Board_Size" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label_Title_Board_Size" type="Label" parent="VBoxContainer/HBox_Board_Size"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "LOCALE_VOLUME"
+horizontal_alignment = 2
+
+[node name="Slider_Volume" type="HSlider" parent="VBoxContainer/HBox_Board_Size"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBox_Language" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label_Title_Language" type="Label" parent="VBoxContainer/HBox_Language"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "LOCALE_LANGUAGE"
+horizontal_alignment = 2
+
+[node name="Option_Language" type="OptionButton" parent="VBoxContainer/HBox_Language"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "한국어"
+popup/item_1/id = 1
+
+[node name="Btn_Back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "LOCALE_BACK"
+
+[connection signal="drag_ended" from="VBoxContainer/HBox_Board_Size/Slider_Volume" to="." method="_on_slider_volume_drag_ended"]
+[connection signal="item_selected" from="VBoxContainer/HBox_Language/Option_Language" to="." method="_on_option_language_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Btn_Back" to="." method="_on_btn_back_pressed"]

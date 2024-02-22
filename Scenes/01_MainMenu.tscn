@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://nf6u0r7lf2pb"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_yjlfe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_62ga4"]
+font_size = 42
+
+[node name="MainMenu" type="CenterContainer"]
+offset_right = 241.0
+offset_bottom = 163.0
+script = ExtResource("1_yjlfe")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "LOCALE_TITLE"
+label_settings = SubResource("LabelSettings_62ga4")
+
+[node name="Btn_StartGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "LOCALE_STARTGAME"
+
+[node name="Btn_Option" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "LOCALE_OPTION"
+
+[node name="Btn_Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "LOCALE_QUIT"
+
+[connection signal="pressed" from="VBoxContainer/Btn_StartGame" to="." method="_on_btn_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Btn_Option" to="." method="_on_btn_option_pressed"]
+[connection signal="pressed" from="VBoxContainer/Btn_Quit" to="." method="_on_btn_quit_pressed"]

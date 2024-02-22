@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpjun6cngt3fb"]
+
+[ext_resource type="Script" path="res://Scripts/Board.gd" id="1_4eyft"]
+[ext_resource type="Texture2D" uid="uid://dsycog25j7inj" path="res://Textures/ballGrey.png" id="2_8g2en"]
+
+[node name="Root" type="Node2D"]
+
+[node name="Board" type="PanelContainer" parent="."]
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_4eyft")
+
+[node name="BallGrey" type="Sprite2D" parent="Board"]
+texture = ExtResource("2_8g2en")

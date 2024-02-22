@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cqime3k4p1s1t"
+
+[deps]
+
+files=["res://Data/blockgame_locale.en.translation", "res://Data/blockgame_locale.kr.translation"]
+
+source_file="res://Data/blockgame_locale.csv"
+dest_files=["res://Data/blockgame_locale.en.translation", "res://Data/blockgame_locale.kr.translation"]
+
+[params]
+
+compress=true
+delimiter=0

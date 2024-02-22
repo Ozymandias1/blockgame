@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpjun6cngt3fb"]
+
+[ext_resource type="Texture2D" uid="uid://dk68sddbasj4i" path="res://Textures/element_green_square.png" id="2_8m7a7"]
+[ext_resource type="Script" path="res://Scripts/Board_Base.gd" id="2_ec67j"]
+[ext_resource type="Script" path="res://Scripts/DebugTest.gd" id="3_63e1i"]
+[ext_resource type="Script" path="res://Scripts/BlockGenerator.gd" id="4_1tkdt"]
+
+[node name="Root" type="Node2D"]
+
+[node name="BlockGenerator" type="Node" parent="."]
+script = ExtResource("4_1tkdt")
+
+[node name="Board_Base" type="GridContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+theme_override_constants/h_separation = -2
+theme_override_constants/v_separation = -2
+script = ExtResource("2_ec67j")
+block_width_count = 10
+
+[node name="Cursor" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 96.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ElementGreenSquare" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
+position = Vector2(0, 30)
+texture = ExtResource("2_8m7a7")
+centered = false
+
+[node name="ElementGreenSquare2" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
+position = Vector2(30, 30)
+texture = ExtResource("2_8m7a7")
+centered = false
+
+[node name="ElementGreenSquare3" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
+position = Vector2(60, 30)
+texture = ExtResource("2_8m7a7")
+centered = false
+
+[node name="ElementGreenSquare4" type="Sprite2D" parent="Cursor"]
+texture_filter = 1
+position = Vector2(30, 0)
+texture = ExtResource("2_8m7a7")
+centered = false
+
+[node name="DebugTest" type="Node" parent="."]
+script = ExtResource("3_63e1i")

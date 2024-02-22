@@ -1,0 +1,15 @@
+﻿keys,en,kr
+LOCALE_TITLE,Block Game,블록게임
+LOCALE_STARTGAME,Start Game,게임시작
+LOCALE_OPTION,Option,옵션
+LOCALE_QUIT,Quit,종료
+LOCALE_PLAY,Play,플레이
+LOCALE_BACK,Back,뒤로가기
+LOCALE_BOARDSIZE,Board Size: ,보드크기: 
+LOCALE_BLOCKSET,Block SET: ,블록세트: 
+LOCALE_VOLUME,Volume: ,볼륨: 
+LOCALE_LANGUAGE,Language: ,언어: 
+LOCALE_SCORE,Score: ,점수: 
+LOCALE_TIME,Time: ,시간: 
+LOCALE_RESUME,Resume,재개
+LOCALE_RETURNTOMAINMENU,Return to MainMenu,메인메뉴로 가기

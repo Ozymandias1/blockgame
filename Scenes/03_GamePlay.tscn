@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://divs3j57r5cw2"]
+
+[ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
+[ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
+
+[node name="Gameplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wjfbx")
+
+[node name="TopMenu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 65.0
+grow_horizontal = 2
+
+[node name="Gameplay_Menu_Bar" type="VBoxContainer" parent="TopMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.5
+offset_right = -10.0
+offset_bottom = -6.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox_Score_Container" type="HBoxContainer" parent="TopMenu/Gameplay_Menu_Bar"]
+layout_mode = 2
+
+[node name="Label_Score_Title" type="Label" parent="TopMenu/Gameplay_Menu_Bar/HBox_Score_Container"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "LOCALE_SCORE"
+horizontal_alignment = 2
+
+[node name="Label_Score_Value" type="Label" parent="TopMenu/Gameplay_Menu_Bar/HBox_Score_Container"]
+layout_mode = 2
+text = "0"
+
+[node name="HBox_Time_Container" type="HBoxContainer" parent="TopMenu/Gameplay_Menu_Bar"]
+layout_mode = 2
+
+[node name="Label_Time_Title" type="Label" parent="TopMenu/Gameplay_Menu_Bar/HBox_Time_Container"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "LOCALE_TIME"
+horizontal_alignment = 2
+
+[node name="Label_Time_Value" type="Label" parent="TopMenu/Gameplay_Menu_Bar/HBox_Time_Container"]
+layout_mode = 2
+text = "00:00"
+
+[node name="Btn_Pause" type="Button" parent="TopMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -55.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 55.0
+grow_horizontal = 0
+text = "II"
+
+[node name="Board" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -135.0
+offset_top = 75.0
+offset_right = 135.0
+offset_bottom = 345.0
+grow_horizontal = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 11
+
+[node name="Label_Test" type="Label" parent="."]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 394.0
+offset_right = 199.0
+offset_bottom = 417.0
+text = "Game Screen"
+
+[node name="Pause" parent="." instance=ExtResource("2_oeh2c")]
+visible = false
+layout_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="TopMenu/Btn_Pause" to="." method="_on_btn_pause_pressed"]
