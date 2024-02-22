@@ -37,6 +37,7 @@ func init_board():
 	for y in range(board_size):
 		for x in range(board_size):
 			var item = BOARD_ITEM.instantiate()
+			item.name = str("%s_%s" % [x,y])
 			board.add_child(item)
 			board_available_map[Vector2i(x, y)] = true
 
