@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=4 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
+[ext_resource type="PackedScene" uid="uid://dl4ve3746egav" path="res://Prefabs/Blocks/block_type_0.tscn" id="3_uicoc"]
 
 [node name="Gameplay" type="Control"]
 layout_mode = 3
@@ -96,5 +97,11 @@ visible = false
 layout_mode = 1
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Test" parent="." instance=ExtResource("3_uicoc")]
+offset_left = 131.0
+offset_top = 360.0
+offset_right = 131.0
+offset_bottom = 360.0
 
 [connection signal="pressed" from="TopMenu/Btn_Pause" to="." method="_on_btn_pause_pressed"]

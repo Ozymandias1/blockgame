@@ -6,6 +6,8 @@ extends Control
 @onready var label_time_value = $TopMenu/Gameplay_Menu_Bar/HBox_Time_Container/Label_Time_Value
 @onready var menu_controller = $"../../MenuController"
 
+@onready var test = $Test
+
 const BOARD_ITEM = preload("res://Prefabs/board_item.tscn")
 var board_size: int:
 	get:
@@ -38,6 +40,7 @@ func init_board():
 		for x in range(board_size):
 			var item = BOARD_ITEM.instantiate()
 			item.name = str("%s_%s" % [x,y])
+			item.mouse_entered.connect(_on_block_mouse_entered.bind(item))
 			board.add_child(item)
 			board_available_map[Vector2i(x, y)] = true
 
@@ -46,9 +49,6 @@ func gameplay_start():
 	game_elapsed_time = 0
 	timer.paused = false
 	timer.start()
-	
-func create_blocks():
-	print("create_blocks() called.")
 	
 # 게임 진행시간 타이머 콜백 함수
 # https://forum.godotengine.org/t/how-to-convert-seconds-into-ddmm-ss-format/8174
@@ -72,3 +72,15 @@ func _on_btn_resume_pressed():
 # Pause-ReturnToMainMenu 버튼 클릭 시그널
 func _on_btn_returnToMainMenu():
 	menu_controller.change_menu(Constants.MenuPage.MainMenu)
+
+func create_blocks():
+	print("create_blocks() called.")
+
+# 보드 배경 블럭 마우스 엔터 시그널
+# https://www.reddit.com/r/godot/comments/yp3soy/comment/k9sx11d/
+func _on_block_mouse_entered(item):
+	print(item.name," ", item.size)
+	test.global_position = item.global_position
+	test.global_position.x += 16
+	test.global_position.y += 16
+	pass

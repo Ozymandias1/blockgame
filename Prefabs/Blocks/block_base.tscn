@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c23lg101q4aac"]
+
+[ext_resource type="Script" path="res://Scripts/Block.gd" id="1_eh8bo"]
+[ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="2_sragy"]
+
+[node name="BlockBase" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_eh8bo")
+block_texture = ExtResource("2_sragy")

@@ -34,6 +34,7 @@ popup/item_2/text = "11"
 popup/item_2/id = 2
 
 [node name="HBox_Block_Set" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label_Title_Block_Set" type="Label" parent="VBoxContainer/HBox_Block_Set"]
