@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=6 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
-[ext_resource type="PackedScene" uid="uid://dl4ve3746egav" path="res://Prefabs/Blocks/block_type_0.tscn" id="3_uicoc"]
+[ext_resource type="PackedScene" uid="uid://bk6yaov30lt2e" path="res://Prefabs/Blocks/block_type_9.tscn" id="5_xsbgb"]
+[ext_resource type="PackedScene" uid="uid://fhet2b87grbq" path="res://Prefabs/Blocks/block_type_7.tscn" id="10_tu3sv"]
+[ext_resource type="PackedScene" uid="uid://don756wqshri7" path="res://Prefabs/Blocks/block_type_8.tscn" id="11_0arc4"]
 
-[node name="Gameplay" type="Control"]
+[node name="Gameplay" type="Control" node_paths=PackedStringArray("test_blocks")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wjfbx")
+test_blocks = [NodePath("BlockBase"), NodePath("BlockBase2"), NodePath("BlockBase3")]
 
 [node name="TopMenu" type="Panel" parent="."]
 layout_mode = 1
@@ -98,10 +101,22 @@ layout_mode = 1
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="Test" parent="." instance=ExtResource("3_uicoc")]
-offset_left = 131.0
-offset_top = 360.0
-offset_right = 131.0
-offset_bottom = 360.0
+[node name="BlockBase" parent="." instance=ExtResource("10_tu3sv")]
+offset_left = 50.0
+offset_top = 584.0
+offset_right = 50.0
+offset_bottom = 584.0
+
+[node name="BlockBase2" parent="." instance=ExtResource("11_0arc4")]
+offset_left = 50.0
+offset_top = 584.0
+offset_right = 50.0
+offset_bottom = 584.0
+
+[node name="BlockBase3" parent="." instance=ExtResource("5_xsbgb")]
+offset_left = 142.0
+offset_top = 616.0
+offset_right = 142.0
+offset_bottom = 616.0
 
 [connection signal="pressed" from="TopMenu/Btn_Pause" to="." method="_on_btn_pause_pressed"]
