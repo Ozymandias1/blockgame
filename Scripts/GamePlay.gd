@@ -33,6 +33,8 @@ func _process(delta):
 			test_blocks[test_block_index].global_position = test_lock_pos
 		else:
 			test_blocks[test_block_index].global_position = get_global_mouse_position()
+			test_blocks[test_block_index].global_position.x -= 45
+			test_blocks[test_block_index].global_position.y -= 45
 	pass
 
 # 보드판 초기화
