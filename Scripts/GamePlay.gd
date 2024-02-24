@@ -86,8 +86,9 @@ func _on_btn_resume_pressed():
 func _on_btn_returnToMainMenu():
 	menu_controller.change_menu(Constants.MenuPage.MainMenu)
 
-func create_blocks():
-	print("create_blocks() called.")
+# 배치용 블럭 생성
+func create_placable_blocks():
+	print("create_placable_blocks() called.")
 
 # 블럭의 배치 가능 여부를 판별
 func check_is_placeable(item_board_index: Vector2i):
@@ -113,8 +114,8 @@ func _on_block_mouse_entered(item):
 		var item_board_index = item.get_meta("BoardIndex")
 		if check_is_placeable(item_board_index):
 			test_lock_pos = item.global_position
-			test_lock_pos.x += 16
-			test_lock_pos.y += 16
+			test_lock_pos.x -= 30
+			test_lock_pos.y -= 30
 			test_is_lock = true
 			test_blocks[test_block_index].set_opacity(1.0)
 		else:
