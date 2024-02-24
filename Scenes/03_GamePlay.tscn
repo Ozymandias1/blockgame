@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=22 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
@@ -15,6 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://don756wqshri7" path="res://Prefabs/Blocks/block_type_8.tscn" id="11_0arc4"]
 [ext_resource type="PackedScene" uid="uid://b0g552ksv2765" path="res://Prefabs/Blocks/block_type_11.tscn" id="14_678ew"]
 [ext_resource type="PackedScene" uid="uid://cdukmeykdv41b" path="res://Prefabs/Blocks/block_type_12.tscn" id="15_yqo8g"]
+[ext_resource type="PackedScene" uid="uid://bmbf173qwey3h" path="res://Prefabs/Blocks/block_type_13.tscn" id="16_qe4fh"]
+[ext_resource type="PackedScene" uid="uid://cb27rhkhg4nou" path="res://Prefabs/Blocks/block_type_14.tscn" id="17_u5kvk"]
+[ext_resource type="PackedScene" uid="uid://cg7oce2murfqs" path="res://Prefabs/Blocks/block_type_15.tscn" id="18_1ektb"]
+[ext_resource type="PackedScene" uid="uid://b2pws33hhvvkd" path="res://Prefabs/Blocks/block_type_16.tscn" id="19_3s0ba"]
+[ext_resource type="PackedScene" uid="uid://dhlcf1ajj0oq6" path="res://Prefabs/Blocks/block_type_17.tscn" id="20_8p0m4"]
+[ext_resource type="PackedScene" uid="uid://c5kgs1am783rc" path="res://Prefabs/Blocks/block_type_18.tscn" id="21_xgrnr"]
 
 [node name="Gameplay" type="Control" node_paths=PackedStringArray("test_blocks")]
 layout_mode = 3
@@ -24,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wjfbx")
-test_blocks = [NodePath("BlockBase"), NodePath("BlockBase2"), NodePath("BlockBase3"), NodePath("BlockBase4"), NodePath("BlockBase5"), NodePath("BlockBase6"), NodePath("BlockBase7"), NodePath("BlockBase8"), NodePath("BlockBase9"), NodePath("BlockBase10"), NodePath("BlockBase11"), NodePath("BlockBase12"), NodePath("BlockBase13")]
+test_blocks = [NodePath("BlockBase"), NodePath("BlockBase2"), NodePath("BlockBase3"), NodePath("BlockBase4"), NodePath("BlockBase5"), NodePath("BlockBase6"), NodePath("BlockBase7"), NodePath("BlockBase8"), NodePath("BlockBase9"), NodePath("BlockBase10"), NodePath("BlockBase11"), NodePath("BlockBase12"), NodePath("BlockBase13"), NodePath("BlockBase14"), NodePath("BlockBase15"), NodePath("BlockBase16"), NodePath("BlockBase17"), NodePath("BlockBase18"), NodePath("BlockBase19")]
 
 [node name="TopMenu" type="Panel" parent="."]
 layout_mode = 1
@@ -188,5 +194,41 @@ offset_left = 62.0
 offset_top = 949.0
 offset_right = 62.0
 offset_bottom = 949.0
+
+[node name="BlockBase14" parent="." instance=ExtResource("16_qe4fh")]
+offset_left = 63.0
+offset_top = 1038.0
+offset_right = 63.0
+offset_bottom = 1038.0
+
+[node name="BlockBase15" parent="." instance=ExtResource("17_u5kvk")]
+offset_left = 191.0
+offset_top = 1025.0
+offset_right = 191.0
+offset_bottom = 1025.0
+
+[node name="BlockBase16" parent="." instance=ExtResource("18_1ektb")]
+offset_left = 64.0
+offset_top = 1119.0
+offset_right = 64.0
+offset_bottom = 1119.0
+
+[node name="BlockBase17" parent="." instance=ExtResource("19_3s0ba")]
+offset_left = 190.0
+offset_top = 1131.0
+offset_right = 190.0
+offset_bottom = 1131.0
+
+[node name="BlockBase18" parent="." instance=ExtResource("20_8p0m4")]
+offset_left = 61.0
+offset_top = 1222.0
+offset_right = 61.0
+offset_bottom = 1222.0
+
+[node name="BlockBase19" parent="." instance=ExtResource("21_xgrnr")]
+offset_left = 203.0
+offset_top = 1267.0
+offset_right = 203.0
+offset_bottom = 1267.0
 
 [connection signal="pressed" from="TopMenu/Btn_Pause" to="." method="_on_btn_pause_pressed"]
