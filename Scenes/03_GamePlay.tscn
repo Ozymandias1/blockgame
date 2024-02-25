@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dhlcf1ajj0oq6" path="res://Prefabs/Blocks/block_type_17.tscn" id="20_8p0m4"]
 [ext_resource type="PackedScene" uid="uid://c5kgs1am783rc" path="res://Prefabs/Blocks/block_type_18.tscn" id="21_xgrnr"]
 
-[node name="Gameplay" type="Control" node_paths=PackedStringArray("test_blocks")]
+[node name="Gameplay" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wjfbx")
-test_blocks = [NodePath("BlockBase"), NodePath("BlockBase2"), NodePath("BlockBase3"), NodePath("BlockBase4"), NodePath("BlockBase5"), NodePath("BlockBase6"), NodePath("BlockBase7"), NodePath("BlockBase8"), NodePath("BlockBase9"), NodePath("BlockBase10"), NodePath("BlockBase11"), NodePath("BlockBase12"), NodePath("BlockBase13"), NodePath("BlockBase14"), NodePath("BlockBase15"), NodePath("BlockBase16"), NodePath("BlockBase17"), NodePath("BlockBase18"), NodePath("BlockBase19")]
+placable_blocks = Array[PackedScene]([ExtResource("3_vmfgw"), ExtResource("4_b7yhi"), ExtResource("5_4lrpl"), ExtResource("6_jtnrp"), ExtResource("7_yvsll"), ExtResource("8_epudl"), ExtResource("9_73kot"), ExtResource("10_tu3sv"), ExtResource("11_0arc4"), ExtResource("5_xsbgb"), ExtResource("5_6xuad"), ExtResource("14_678ew"), ExtResource("15_yqo8g"), ExtResource("16_qe4fh"), ExtResource("17_u5kvk"), ExtResource("18_1ektb"), ExtResource("19_3s0ba"), ExtResource("20_8p0m4"), ExtResource("21_xgrnr")])
 
 [node name="TopMenu" type="Panel" parent="."]
 layout_mode = 1
@@ -103,132 +103,23 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 11
 
-[node name="Label_Test" type="Label" parent="."]
-layout_mode = 0
-offset_left = 97.0
-offset_top = 394.0
-offset_right = 199.0
-offset_bottom = 417.0
-text = "Game Screen"
+[node name="Timer" type="Timer" parent="."]
+
+[node name="PlacableBlockArea" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -155.0
+offset_top = 446.0
+offset_right = 155.0
+offset_bottom = 536.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
 
 [node name="Pause" parent="." instance=ExtResource("2_oeh2c")]
 visible = false
 layout_mode = 1
 
-[node name="Timer" type="Timer" parent="."]
-
-[node name="BlockBase" parent="." instance=ExtResource("3_vmfgw")]
-offset_left = 56.0
-offset_top = 589.0
-offset_right = 56.0
-offset_bottom = 589.0
-
-[node name="BlockBase2" parent="." instance=ExtResource("4_b7yhi")]
-offset_left = 138.0
-offset_top = 584.0
-offset_right = 138.0
-offset_bottom = 584.0
-
-[node name="BlockBase3" parent="." instance=ExtResource("5_4lrpl")]
-offset_left = 261.0
-offset_top = 579.0
-offset_right = 261.0
-offset_bottom = 579.0
-
-[node name="BlockBase4" parent="." instance=ExtResource("6_jtnrp")]
-offset_left = 380.0
-offset_top = 581.0
-offset_right = 380.0
-offset_bottom = 581.0
-
-[node name="BlockBase5" parent="." instance=ExtResource("7_yvsll")]
-offset_left = 41.0
-offset_top = 694.0
-offset_right = 41.0
-offset_bottom = 694.0
-
-[node name="BlockBase6" parent="." instance=ExtResource("8_epudl")]
-offset_left = 150.0
-offset_top = 674.0
-offset_right = 150.0
-offset_bottom = 674.0
-
-[node name="BlockBase7" parent="." instance=ExtResource("9_73kot")]
-offset_left = 271.0
-offset_top = 697.0
-offset_right = 271.0
-offset_bottom = 697.0
-
-[node name="BlockBase8" parent="." instance=ExtResource("10_tu3sv")]
-offset_left = 383.0
-offset_top = 709.0
-offset_right = 383.0
-offset_bottom = 709.0
-
-[node name="BlockBase9" parent="." instance=ExtResource("11_0arc4")]
-offset_left = 63.0
-offset_top = 821.0
-offset_right = 63.0
-offset_bottom = 821.0
-
-[node name="BlockBase10" parent="." instance=ExtResource("5_xsbgb")]
-offset_left = 154.0
-offset_top = 838.0
-offset_right = 154.0
-offset_bottom = 838.0
-
-[node name="BlockBase11" parent="." instance=ExtResource("5_6xuad")]
-offset_left = 244.0
-offset_top = 833.0
-offset_right = 244.0
-offset_bottom = 833.0
-
-[node name="BlockBase12" parent="." instance=ExtResource("14_678ew")]
-offset_left = 373.0
-offset_top = 816.0
-offset_right = 373.0
-offset_bottom = 816.0
-
-[node name="BlockBase13" parent="." instance=ExtResource("15_yqo8g")]
-offset_left = 62.0
-offset_top = 949.0
-offset_right = 62.0
-offset_bottom = 949.0
-
-[node name="BlockBase14" parent="." instance=ExtResource("16_qe4fh")]
-offset_left = 63.0
-offset_top = 1038.0
-offset_right = 63.0
-offset_bottom = 1038.0
-
-[node name="BlockBase15" parent="." instance=ExtResource("17_u5kvk")]
-offset_left = 191.0
-offset_top = 1025.0
-offset_right = 191.0
-offset_bottom = 1025.0
-
-[node name="BlockBase16" parent="." instance=ExtResource("18_1ektb")]
-offset_left = 64.0
-offset_top = 1119.0
-offset_right = 64.0
-offset_bottom = 1119.0
-
-[node name="BlockBase17" parent="." instance=ExtResource("19_3s0ba")]
-offset_left = 190.0
-offset_top = 1131.0
-offset_right = 190.0
-offset_bottom = 1131.0
-
-[node name="BlockBase18" parent="." instance=ExtResource("20_8p0m4")]
-offset_left = 61.0
-offset_top = 1222.0
-offset_right = 61.0
-offset_bottom = 1222.0
-
-[node name="BlockBase19" parent="." instance=ExtResource("21_xgrnr")]
-offset_left = 203.0
-offset_top = 1267.0
-offset_right = 203.0
-offset_bottom = 1267.0
-
 [connection signal="pressed" from="TopMenu/Btn_Pause" to="." method="_on_btn_pause_pressed"]
+[connection signal="resized" from="Board" to="." method="_on_board_resized"]

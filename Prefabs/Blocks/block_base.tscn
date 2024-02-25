@@ -6,6 +6,6 @@
 [node name="BlockBase" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_eh8bo")
 block_texture = ExtResource("2_sragy")
