@@ -28,6 +28,7 @@ func _ready():
 	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
 
+# 업데이트
 func _process(delta):
 	if is_instance_valid(current_block):
 		if current_block_has_target:
@@ -131,19 +132,22 @@ func _on_block_mouse_entered(item):
 			current_block_target_position.y -= 29
 			current_block_has_target = true
 			current_block.set_opacity(1.0)
+			current_block.set_meta("BoardItemIndex", item_board_index)
 		else:
 			current_block_has_target = false
 			current_block.set_opacity(0.5)
+			current_block.set_meta("BoardItemIndex", null)
 
 # 보드 배경 블럭 마우스 나감 시그널
 func _on_block_mouse_exited():
 	if is_instance_valid(current_block):
 		current_block_has_target = false
 		current_block.set_opacity(0.5)
+		current_block.set_meta("BoardItemIndex", null)
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
-	# 배치용 블럭 공간 위치 조정
+	# 배치용 블럭 공간 컨트롤 위치 조정
 	placable_block_area.global_position.y = board.global_position.y + board.size.y + 60
 
 # 하단 배치 대기용 블럭 입력 시그널
