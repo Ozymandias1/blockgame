@@ -117,6 +117,15 @@ offset_bottom = 536.0
 grow_horizontal = 2
 theme_override_constants/separation = 20
 
+[node name="PlacedBlocks" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Pause" parent="." instance=ExtResource("2_oeh2c")]
 visible = false
 layout_mode = 1

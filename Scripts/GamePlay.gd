@@ -1,6 +1,6 @@
 extends Control
 
-@onready var gameplay_root = $"."
+@onready var placed_blocks = $PlacedBlocks
 @onready var board = $Board
 @onready var pause_screen = $Pause
 @onready var timer = $Timer
@@ -31,13 +31,7 @@ func _ready():
 
 # 업데이트
 func _process(delta):
-	if is_instance_valid(current_block):
-		if current_block_has_target:
-			current_block.global_position = current_block_target_position
-		else:
-			current_block.global_position = get_global_mouse_position()
-			current_block.global_position.x -= 45
-			current_block.global_position.y -= 45
+	update_placable_block_location()
 
 # 보드판 초기화
 func init_board():
@@ -64,6 +58,8 @@ func init_board():
 	
 	# 보드판 초기화 후 배치용 블럭 생성
 	create_placable_blocks()
+	# 배치되어있던 블럭 비우기
+	claer_placed_blocks()
 
 # 게임플레이 시작
 func gameplay_start():
@@ -160,10 +156,10 @@ func _on_board_item_mouse_exited():
 func _on_board_item_gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-			if is_instance_valid(current_block):
+			if is_instance_valid(current_block) and current_block_has_target:
 				var current_block_board_item_index = current_block.get_meta("BoardItemIndex")
 				mark_unavailable(current_block_board_item_index)
-				current_block = null
+				break_current_block()
 				# 보드판에 배치후에 배치대기중인 블럭이 없다면 새로 생성한다.
 				if placable_block_area.get_child_count() == 0:
 					create_placable_blocks()
@@ -173,16 +169,18 @@ func _on_board_resized():
 	# 배치용 블럭 공간 컨트롤 위치 조정
 	placable_block_area.global_position.y = board.global_position.y + board.size.y + 60
 
-# 하단 배치 대기용 블럭 입력 시그널
+# 하단 배치 대기용 블럭 입력(클릭) 시그널
 func _on_placable_block_gui_input(event: InputEvent, target):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			if not is_instance_valid(current_block):
 				current_block = target
 				current_block.mouse_filter = MOUSE_FILTER_IGNORE
+				current_block_has_target = false
 				# 배치용 블럭 컨테이너에서 게임플레이 루트 씬으로 부모 노드를 변경한다.
 				current_block.get_parent().remove_child(current_block)
-				gameplay_root.add_child(current_block)
+				placed_blocks.add_child(current_block)
+				update_placable_block_location()
 
 # 블럭 배치시 블럭 인덱스에 해당하는 부분에 사용 불가능 여부를 체크한다.
 func mark_unavailable(targetIndex: Vector2i):
@@ -191,3 +189,29 @@ func mark_unavailable(targetIndex: Vector2i):
 		for p in block_indices:
 			var mark_index = Vector2i(targetIndex.x + p.x, targetIndex.y + p.y)
 			board_available_map[mark_index] = false
+
+# 블럭을 분해하여 각 개별 블럭을 배치된 블럭 노드로 붙인다.
+func break_current_block():
+	for child in current_block.get_children():
+		var saved_child_global_position = child.global_position
+		current_block.remove_child(child)
+		placed_blocks.add_child(child)
+		child.global_position = saved_child_global_position
+	current_block.queue_free()
+	current_block = null
+
+# 배치중인(들고있는)블럭 위치 업데이트 함수
+func update_placable_block_location():
+	if is_instance_valid(current_block):
+		if current_block_has_target:
+			current_block.global_position = current_block_target_position
+		else:
+			current_block.global_position = get_global_mouse_position()
+			current_block.global_position.x -= 45
+			current_block.global_position.y -= 45
+
+# 배치완료 블럭 비우기
+func claer_placed_blocks():
+	for child in placed_blocks.get_children():
+		placed_blocks.remove_child(child)
+		child.queue_free()
