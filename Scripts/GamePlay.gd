@@ -159,10 +159,12 @@ func _on_board_item_gui_input(event: InputEvent):
 			if is_instance_valid(current_block) and current_block_has_target:
 				var current_block_board_item_index = current_block.get_meta("BoardItemIndex")
 				mark_unavailable(current_block_board_item_index)
-				break_current_block()
+				break_current_block(current_block_board_item_index)
 				# 보드판에 배치후에 배치대기중인 블럭이 없다면 새로 생성한다.
 				if placable_block_area.get_child_count() == 0:
 					create_placable_blocks()
+				# 채워진 줄이 있는지 체크한다.
+				check_complete_line()
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
@@ -191,7 +193,7 @@ func mark_unavailable(targetIndex: Vector2i):
 			board_available_map[mark_index] = false
 
 # 블럭을 분해하여 각 개별 블럭을 배치된 블럭 노드로 붙인다.
-func break_current_block():
+func break_current_block(current_block_board_item_index):
 	for child in current_block.get_children():
 		var saved_child_global_position = child.global_position
 		current_block.remove_child(child)
@@ -215,3 +217,17 @@ func claer_placed_blocks():
 	for child in placed_blocks.get_children():
 		placed_blocks.remove_child(child)
 		child.queue_free()
+
+# 채워진 라인 확인
+func check_complete_line():
+	# 가로줄 확인
+	for y in board_size:
+		var counter = 0
+		
+		for x in board_size:
+			var index = Vector2i(x, y)
+			if not board_available_map[index]:
+				counter += 1
+		
+		print("line [%s]: [%s]" % [y, counter])
+	print("--------------------------------------")
