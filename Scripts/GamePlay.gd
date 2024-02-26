@@ -1,5 +1,6 @@
 extends Control
 
+@onready var placed_blocks = $PlacedBlocks
 @onready var board = $Board
 @onready var pause_screen = $Pause
 @onready var timer = $Timer
@@ -28,14 +29,9 @@ func _ready():
 	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
 
+# 업데이트
 func _process(delta):
-	if is_instance_valid(current_block):
-		if current_block_has_target:
-			current_block.global_position = current_block_target_position
-		else:
-			current_block.global_position = get_global_mouse_position()
-			current_block.global_position.x -= 45
-			current_block.global_position.y -= 45
+	update_placable_block_location()
 
 # 보드판 초기화
 func init_board():
@@ -54,13 +50,16 @@ func init_board():
 			var item = BOARD_ITEM.instantiate()
 			item.name = str("%s_%s" % [x,y])
 			item.set_meta("BoardIndex", Vector2i(x, y))
-			item.mouse_entered.connect(_on_block_mouse_entered.bind(item))
-			item.mouse_exited.connect(_on_block_mouse_exited)
+			item.mouse_entered.connect(_on_board_item_mouse_entered.bind(item))
+			item.mouse_exited.connect(_on_board_item_mouse_exited)
+			item.gui_input.connect(_on_board_item_gui_input)
 			board.add_child(item)
 			board_available_map[Vector2i(x, y)] = true
 	
 	# 보드판 초기화 후 배치용 블럭 생성
 	create_placable_blocks()
+	# 배치되어있던 블럭 비우기
+	claer_placed_blocks()
 
 # 게임플레이 시작
 func gameplay_start():
@@ -111,14 +110,23 @@ func check_is_placeable(item_board_index: Vector2i):
 	var matchCount = 0
 	for p in block_indices:
 		var check_point = Vector2i(item_board_index.x + p.x, item_board_index.y + p.y)
+		var available_map_check = false
+		var board_region_check = false
+		# 이미 배치된 블럭들과의 체크
+		if board_available_map.has(check_point) and board_available_map[check_point]:
+			available_map_check = true
+		# 보드 판영역
 		if 0 <= check_point.x and 0 <= check_point.y and check_point.x < board.columns and check_point.y < board.columns:
+			board_region_check = true		
+		# 매치 조건 확인
+		if available_map_check and board_region_check:
 			matchCount += 1
 			
 	return matchCount == block_indices.size()
 
 # 보드 배경 블럭 마우스 엔터 시그널
 # 시그널에 매개변수 넘기기 참고: https://www.reddit.com/r/godot/comments/yp3soy/comment/k9sx11d/
-func _on_block_mouse_entered(item):
+func _on_board_item_mouse_entered(item):
 	# 현재 배치할 블럭(클릭한것)이 유효하면
 	# 마우스가 위치한 곳의 보드항목의 인덱스를 가져와
 	# 배치블럭의 블럭인덱스값을 +-하여 배치가능한지 확인해보고
@@ -131,25 +139,95 @@ func _on_block_mouse_entered(item):
 			current_block_target_position.y -= 29
 			current_block_has_target = true
 			current_block.set_opacity(1.0)
+			current_block.set_meta("BoardItemIndex", item_board_index)
 		else:
 			current_block_has_target = false
 			current_block.set_opacity(0.5)
+			current_block.set_meta("BoardItemIndex", null)
 
 # 보드 배경 블럭 마우스 나감 시그널
-func _on_block_mouse_exited():
+func _on_board_item_mouse_exited():
 	if is_instance_valid(current_block):
 		current_block_has_target = false
 		current_block.set_opacity(0.5)
+		current_block.set_meta("BoardItemIndex", null)
+
+# 보드 배경 블럭 입력 처리 시그널
+func _on_board_item_gui_input(event: InputEvent):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+			if is_instance_valid(current_block) and current_block_has_target:
+				var current_block_board_item_index = current_block.get_meta("BoardItemIndex")
+				mark_unavailable(current_block_board_item_index)
+				break_current_block(current_block_board_item_index)
+				# 보드판에 배치후에 배치대기중인 블럭이 없다면 새로 생성한다.
+				if placable_block_area.get_child_count() == 0:
+					create_placable_blocks()
+				# 채워진 줄이 있는지 체크한다.
+				check_complete_line()
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
-	# 배치용 블럭 공간 위치 조정
+	# 배치용 블럭 공간 컨트롤 위치 조정
 	placable_block_area.global_position.y = board.global_position.y + board.size.y + 60
 
-# 하단 배치 대기용 블럭 입력 시그널
+# 하단 배치 대기용 블럭 입력(클릭) 시그널
 func _on_placable_block_gui_input(event: InputEvent, target):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			if not is_instance_valid(current_block):
 				current_block = target
 				current_block.mouse_filter = MOUSE_FILTER_IGNORE
+				current_block_has_target = false
+				# 배치용 블럭 컨테이너에서 게임플레이 루트 씬으로 부모 노드를 변경한다.
+				current_block.get_parent().remove_child(current_block)
+				placed_blocks.add_child(current_block)
+				update_placable_block_location()
+
+# 블럭 배치시 블럭 인덱스에 해당하는 부분에 사용 불가능 여부를 체크한다.
+func mark_unavailable(targetIndex: Vector2i):
+	if is_instance_valid(current_block):
+		var block_indices = current_block.block_indices
+		for p in block_indices:
+			var mark_index = Vector2i(targetIndex.x + p.x, targetIndex.y + p.y)
+			board_available_map[mark_index] = false
+
+# 블럭을 분해하여 각 개별 블럭을 배치된 블럭 노드로 붙인다.
+func break_current_block(current_block_board_item_index):
+	for child in current_block.get_children():
+		var saved_child_global_position = child.global_position
+		current_block.remove_child(child)
+		placed_blocks.add_child(child)
+		child.global_position = saved_child_global_position
+	current_block.queue_free()
+	current_block = null
+
+# 배치중인(들고있는)블럭 위치 업데이트 함수
+func update_placable_block_location():
+	if is_instance_valid(current_block):
+		if current_block_has_target:
+			current_block.global_position = current_block_target_position
+		else:
+			current_block.global_position = get_global_mouse_position()
+			current_block.global_position.x -= 45
+			current_block.global_position.y -= 45
+
+# 배치완료 블럭 비우기
+func claer_placed_blocks():
+	for child in placed_blocks.get_children():
+		placed_blocks.remove_child(child)
+		child.queue_free()
+
+# 채워진 라인 확인
+func check_complete_line():
+	# 가로줄 확인
+	for y in board_size:
+		var counter = 0
+		
+		for x in board_size:
+			var index = Vector2i(x, y)
+			if not board_available_map[index]:
+				counter += 1
+		
+		print("line [%s]: [%s]" % [y, counter])
+	print("--------------------------------------")
