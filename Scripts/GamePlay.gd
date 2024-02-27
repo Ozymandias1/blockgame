@@ -165,6 +165,8 @@ func _on_board_item_gui_input(event: InputEvent):
 					create_placable_blocks()
 				# 채워진 줄이 있는지 체크한다.
 				check_complete_line()
+				# 게임오버를 체크한다.
+				check_gameover()
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
@@ -259,3 +261,8 @@ func check_complete_line():
 					placed_blocks.remove_child(delete_node)
 					delete_node.queue_free()
 					board_available_map[Vector2i(x, y)] = true
+
+# 게임 오버 조건 확인
+func check_gameover():
+	print('check_gameover() called, placable_block_area.get_children() size: [%s]' % placable_block_area.get_children().size())
+	pass
