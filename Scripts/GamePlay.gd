@@ -58,7 +58,7 @@ func init_board():
 	
 	# 보드판 초기화 후 배치용 블럭 생성
 	create_placable_blocks()
-	# 배치되어있던 블럭 비우기
+	# 이전에 배치되어있던 블럭 비우기
 	claer_placed_blocks()
 
 # 게임플레이 시작
@@ -98,7 +98,7 @@ func create_placable_blocks():
 		item.queue_free()
 	# 새 배치용 블럭 생성
 	for i in range(3):
-		var new_block_source = placable_blocks[placable_blocks.size()-1]#placable_blocks.pick_random()
+		var new_block_source = placable_blocks.pick_random()
 		var new_block = new_block_source.instantiate()
 		new_block.gui_input.connect(_on_placable_block_gui_input.bind(new_block))
 		placable_block_area.add_child(new_block)
@@ -194,6 +194,7 @@ func mark_unavailable(targetIndex: Vector2i):
 
 # 블럭을 분해하여 각 개별 블럭을 배치된 블럭 노드로 붙인다.
 func break_current_block(current_block_board_item_index):
+	current_block.apply_board_item_index(current_block_board_item_index)
 	for child in current_block.get_children():
 		var saved_child_global_position = child.global_position
 		current_block.remove_child(child)
@@ -212,7 +213,7 @@ func update_placable_block_location():
 			current_block.global_position.x -= 45
 			current_block.global_position.y -= 45
 
-# 배치완료 블럭 비우기
+# 보드판에 배치되어 있던 블럭 모두 비우기
 func claer_placed_blocks():
 	for child in placed_blocks.get_children():
 		placed_blocks.remove_child(child)
