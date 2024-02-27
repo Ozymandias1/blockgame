@@ -98,7 +98,7 @@ func create_placable_blocks():
 		item.queue_free()
 	# 새 배치용 블럭 생성
 	for i in range(3):
-		var new_block_source = placable_blocks.pick_random()
+		var new_block_source = placable_blocks[placable_blocks.size()-1]#placable_blocks.pick_random()
 		var new_block = new_block_source.instantiate()
 		new_block.gui_input.connect(_on_placable_block_gui_input.bind(new_block))
 		placable_block_area.add_child(new_block)

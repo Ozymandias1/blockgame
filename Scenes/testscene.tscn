@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwc5uivfpyiy5"]
+
+[ext_resource type="Texture2D" uid="uid://dk68sddbasj4i" path="res://Textures/element_green_square.png" id="1_u3cnt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gf8dk"]
+size = Vector2(30, 30)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(100, 65)
+shape = SubResource("RectangleShape2D_gf8dk")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D/CollisionShape2D"]
+texture_filter = 1
+texture = ExtResource("1_u3cnt")

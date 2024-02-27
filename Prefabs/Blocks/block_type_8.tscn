@@ -1,51 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://don756wqshri7"]
+[gd_scene load_steps=3 format=3 uid="uid://don756wqshri7"]
 
 [ext_resource type="PackedScene" uid="uid://c23lg101q4aac" path="res://Prefabs/Blocks/block_base.tscn" id="1_1br20"]
-[ext_resource type="Texture2D" uid="uid://b6ljuns0i4b7d" path="res://Textures/element_red_square.png" id="2_ij0ri"]
-[ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="3_n1e8c"]
+[ext_resource type="PackedScene" uid="uid://dq7rvhq7u008p" path="res://Prefabs/Blocks/block_element.tscn" id="2_ttkre"]
 
 [node name="BlockBase" instance=ExtResource("1_1br20")]
 custom_minimum_size = Vector2(90, 90)
-block_texture = ExtResource("2_ij0ri")
-block_indices = Array[Vector2i]([Vector2i(-1, -1), Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)])
 
-[node name="TextureRect" type="TextureRect" parent="." index="0"]
-texture_filter = 1
+[node name="BlockElement" parent="." index="0" instance=ExtResource("2_ttkre")]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+block_index = Vector2i(-1, -1)
+
+[node name="BlockElement2" parent="." index="1" instance=ExtResource("2_ttkre")]
+layout_mode = 0
+offset_left = 30.0
+offset_right = 60.0
+offset_bottom = 30.0
+block_index = Vector2i(0, -1)
+
+[node name="BlockElement3" parent="." index="2" instance=ExtResource("2_ttkre")]
 layout_mode = 0
 offset_left = 30.0
 offset_top = 30.0
 offset_right = 60.0
 offset_bottom = 60.0
-mouse_filter = 2
-texture = ExtResource("3_n1e8c")
-expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="." index="1"]
-texture_filter = 1
+[node name="BlockElement4" parent="." index="3" instance=ExtResource("2_ttkre")]
 layout_mode = 0
 offset_left = 30.0
 offset_top = 60.0
 offset_right = 60.0
 offset_bottom = 90.0
-mouse_filter = 2
-texture = ExtResource("3_n1e8c")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="." index="2"]
-texture_filter = 1
-layout_mode = 0
-offset_right = 30.0
-offset_bottom = 30.0
-mouse_filter = 2
-texture = ExtResource("3_n1e8c")
-expand_mode = 1
-
-[node name="TextureRect4" type="TextureRect" parent="." index="3"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 30.0
-offset_right = 60.0
-offset_bottom = 30.0
-mouse_filter = 2
-texture = ExtResource("3_n1e8c")
-expand_mode = 1
+block_index = Vector2i(0, 1)
