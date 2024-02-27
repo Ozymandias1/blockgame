@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dq7rvhq7u008p"]
 
 [ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="1_dhd13"]
-[ext_resource type="Script" path="res://Scripts/block_element.gd" id="2_dcysu"]
+[ext_resource type="Script" path="res://Scripts/BlockElement.gd" id="2_dcysu"]
 
 [node name="BlockElement" type="TextureRect"]
 texture_filter = 1
