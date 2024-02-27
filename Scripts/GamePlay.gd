@@ -230,5 +230,32 @@ func check_complete_line():
 			if not board_available_map[index]:
 				counter += 1
 		
-		print("line [%s]: [%s]" % [y, counter])
-	print("--------------------------------------")
+		# 채워진 가로줄이 있다면 x,y인덱스에 해당하는 이름의 노드를 찾아 제거하고
+		# 인덱스에 해당하는 부분을 배치 가능상태로 전환한다.
+		if counter == board_size:
+			for x in board_size:
+				var target_node_name = "%s_%s" % [x, y]
+				var delete_node = placed_blocks.get_node(target_node_name)
+				if is_instance_valid(delete_node):
+					placed_blocks.remove_child(delete_node)
+					delete_node.queue_free()
+					board_available_map[Vector2i(x, y)] = true
+	# 세로줄 확인
+	for x in board_size:
+		var counter = 0
+		
+		for y in board_size:
+			var index = Vector2i(x, y)
+			if not board_available_map[index]:
+				counter += 1
+		
+		# 채워진 세로줄이 있다면 x,y인덱스에 해당하는 이름의 노드를 찾아 제거하고
+		# 인덱스에 해당하는 부분을 배치 가능상태로 전환한다.
+		if counter == board_size:
+			for y in board_size:
+				var target_node_name = "%s_%s" % [x, y]
+				var delete_node = placed_blocks.get_node(target_node_name)
+				if is_instance_valid(delete_node):
+					placed_blocks.remove_child(delete_node)
+					delete_node.queue_free()
+					board_available_map[Vector2i(x, y)] = true
