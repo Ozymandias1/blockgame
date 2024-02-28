@@ -13,3 +13,4 @@ LOCALE_SCORE,Score: ,점수:
 LOCALE_TIME,Time: ,시간: 
 LOCALE_RESUME,Resume,재개
 LOCALE_RETURNTOMAINMENU,Return to MainMenu,메인메뉴로 가기
+LOCALE_GAMEOVER,Game Over,게임오버

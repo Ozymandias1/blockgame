@@ -1,11 +1,13 @@
 extends Control
 
-@onready var placed_blocks = $PlacedBlocks
 @onready var board = $Board
 @onready var pause_screen = $Pause
+@onready var game_over_screen = $GameOverScreen
 @onready var timer = $Timer
+@onready var label_score_value = $TopMenu/Gameplay_Menu_Bar/HBox_Score_Container/Label_Score_Value
 @onready var label_time_value = $TopMenu/Gameplay_Menu_Bar/HBox_Time_Container/Label_Time_Value
 @onready var menu_controller = $"../../MenuController"
+@onready var placed_blocks = $PlacedBlocks
 @onready var placable_block_area = $PlacableBlockArea
 
 @export var placable_blocks: Array[PackedScene]
@@ -25,7 +27,8 @@ var board_available_map: Dictionary
 # 스크립트 시작
 func _ready():
 	pause_screen.get_node("Buttons/Btn_Resume").pressed.connect(_on_btn_resume_pressed)
-	pause_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu) 
+	pause_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
+	game_over_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
 	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
 
@@ -35,8 +38,10 @@ func _process(delta):
 
 # 보드판 초기화
 func init_board():
-	# 일시정지 화면 숨김 처리
+	# 일시정지, 게임오버, 진행시간 텍스트 처리
 	pause_screen.visible = false
+	game_over_screen.visible = false
+	label_time_value.text = "00:00"
 	
 	# 이전에 생성되어 있던 보드판 항목 제거
 	for item in board.get_children():
@@ -104,9 +109,9 @@ func create_placable_blocks():
 		placable_block_area.add_child(new_block)
 
 # 블럭의 배치 가능 여부를 판별
-func check_is_placeable(item_board_index: Vector2i):
+func check_is_placeable(target_block, item_board_index: Vector2i):
 	# 일단은 테스트 블럭으로
-	var block_indices = current_block.block_indices
+	var block_indices = target_block.block_indices
 	var matchCount = 0
 	for p in block_indices:
 		var check_point = Vector2i(item_board_index.x + p.x, item_board_index.y + p.y)
@@ -133,7 +138,7 @@ func _on_board_item_mouse_entered(item):
 	# 배치가 가능하면 보드항목의 위치값으로 설정하고 아니면 마우스 좌표를 따라다니도록 한다
 	if is_instance_valid(current_block):
 		var item_board_index = item.get_meta("BoardIndex")
-		if check_is_placeable(item_board_index):
+		if check_is_placeable(current_block, item_board_index):
 			current_block_target_position = item.global_position
 			current_block_target_position.x -= 29
 			current_block_target_position.y -= 29
@@ -165,6 +170,9 @@ func _on_board_item_gui_input(event: InputEvent):
 					create_placable_blocks()
 				# 채워진 줄이 있는지 체크한다.
 				check_complete_line()
+				# 게임오버를 체크한다.
+				if check_gameover():
+					show_gameover_screen()
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
@@ -259,3 +267,21 @@ func check_complete_line():
 					placed_blocks.remove_child(delete_node)
 					delete_node.queue_free()
 					board_available_map[Vector2i(x, y)] = true
+
+# 게임 오버 조건 확인
+func check_gameover():
+	# 배치 대기중인 블럭들을 배치 가능한 곳이 있는지 확인
+	for block in placable_block_area.get_children():
+		for index_key in board_available_map.keys():
+			if board_available_map[index_key]: # 배치가 가능한 인덱스라면
+				# 블럭 인덱스로 체크하여 배치가능하다면 게임오버가 아니라고 판단
+				if check_is_placeable(block, index_key):
+					return false
+	
+	# 코드가 여기까지오면 배치가능한곳이 없으므로 게임오버로 판단한다
+	return true
+
+# 게임오버 스크린 보기
+func show_gameover_screen():
+	game_over_screen.visible = true
+	timer.paused = true
