@@ -2,6 +2,7 @@ extends Control
 
 @onready var board = $Board
 @onready var pause_screen = $Pause
+@onready var game_over_screen = $GameOverScreen
 @onready var timer = $Timer
 @onready var label_score_value = $TopMenu/Gameplay_Menu_Bar/HBox_Score_Container/Label_Score_Value
 @onready var label_time_value = $TopMenu/Gameplay_Menu_Bar/HBox_Time_Container/Label_Time_Value
@@ -26,7 +27,8 @@ var board_available_map: Dictionary
 # 스크립트 시작
 func _ready():
 	pause_screen.get_node("Buttons/Btn_Resume").pressed.connect(_on_btn_resume_pressed)
-	pause_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu) 
+	pause_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
+	game_over_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
 	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
 
@@ -36,8 +38,10 @@ func _process(delta):
 
 # 보드판 초기화
 func init_board():
-	# 일시정지 화면 숨김 처리
+	# 일시정지, 게임오버, 진행시간 텍스트 처리
 	pause_screen.visible = false
+	game_over_screen.visible = false
+	label_time_value.text = "00:00"
 	
 	# 이전에 생성되어 있던 보드판 항목 제거
 	for item in board.get_children():
@@ -167,7 +171,8 @@ func _on_board_item_gui_input(event: InputEvent):
 				# 채워진 줄이 있는지 체크한다.
 				check_complete_line()
 				# 게임오버를 체크한다.
-				check_gameover()
+				if check_gameover():
+					show_gameover_screen()
 
 # 보드판 크기변경 시그널
 func _on_board_resized():
@@ -274,5 +279,9 @@ func check_gameover():
 					return false
 	
 	# 코드가 여기까지오면 배치가능한곳이 없으므로 게임오버로 판단한다
-	print('game is over')
 	return true
+
+# 게임오버 스크린 보기
+func show_gameover_screen():
+	game_over_screen.visible = true
+	timer.paused = true
