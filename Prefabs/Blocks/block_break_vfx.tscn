@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4fidg674hyot"]
+
+[ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="1_su5nl"]
+[ext_resource type="Script" path="res://Scripts/BlockElement.gd" id="2_nhebk"]
+[ext_resource type="Texture2D" uid="uid://dk68sddbasj4i" path="res://Textures/element_green_square.png" id="3_j60gl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upyql"]
+size = Vector2(15, 15)
+
+[node name="BlockElement" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 30)
+offset_left = 36.0
+offset_top = 24.0
+offset_right = 66.0
+offset_bottom = 54.0
+mouse_filter = 2
+texture = ExtResource("1_su5nl")
+expand_mode = 2
+script = ExtResource("2_nhebk")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(7.5, 7.5)
+shape = SubResource("RectangleShape2D_upyql")
+
+[node name="TextureRect" type="TextureRect" parent="RigidBody2D/CollisionShape2D"]
+custom_minimum_size = Vector2(16, 16)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_j60gl")
+expand_mode = 2

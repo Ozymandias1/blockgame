@@ -1,18 +1,110 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwc5uivfpyiy5"]
+[gd_scene load_steps=5 format=3 uid="uid://cwc5uivfpyiy5"]
 
-[ext_resource type="Texture2D" uid="uid://dk68sddbasj4i" path="res://Textures/element_green_square.png" id="1_u3cnt"]
+[ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="1_gsj8o"]
+[ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_l2ra2"]
+[ext_resource type="Texture2D" uid="uid://b6ljuns0i4b7d" path="res://Textures/element_red_square.png" id="3_fh02t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gf8dk"]
-size = Vector2(30, 30)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upyql"]
+size = Vector2(15, 15)
 
-[node name="Node2D" type="Node2D"]
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(100, 65)
-shape = SubResource("RectangleShape2D_gf8dk")
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D/CollisionShape2D"]
+[node name="testsceneroot" type="Control"]
 texture_filter = 1
-texture = ExtResource("1_u3cnt")
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_l2ra2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 144.0
+offset_top = 230.0
+offset_right = 174.0
+offset_bottom = 260.0
+texture = ExtResource("1_gsj8o")
+expand_mode = 2
+
+[node name="LeftTop" type="RigidBody2D" parent="."]
+position = Vector2(151.5, 237.5)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTop"]
+shape = SubResource("RectangleShape2D_upyql")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftTop/CollisionShape2D"]
+texture_filter = 1
+scale = Vector2(0.468419, 0.468419)
+texture = ExtResource("3_fh02t")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="LeftTop"]
+rect = Rect2(-7.5, -7.5, 15, 15)
+
+[node name="RightTop" type="RigidBody2D" parent="."]
+position = Vector2(166.5, 237.5)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightTop"]
+shape = SubResource("RectangleShape2D_upyql")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RightTop/CollisionShape2D"]
+texture_filter = 1
+scale = Vector2(0.468419, 0.468419)
+texture = ExtResource("3_fh02t")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="RightTop"]
+
+[node name="LeftBottom" type="RigidBody2D" parent="."]
+position = Vector2(151.5, 252.5)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBottom"]
+shape = SubResource("RectangleShape2D_upyql")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftBottom/CollisionShape2D"]
+texture_filter = 1
+scale = Vector2(0.468419, 0.468419)
+texture = ExtResource("3_fh02t")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="LeftBottom"]
+
+[node name="RightBottom" type="RigidBody2D" parent="."]
+position = Vector2(166.5, 252.5)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBottom"]
+shape = SubResource("RectangleShape2D_upyql")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="RightBottom/CollisionShape2D"]
+texture_filter = 1
+scale = Vector2(0.468419, 0.468419)
+texture = ExtResource("3_fh02t")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="RightBottom"]
+
+[node name="BtnBreak" type="Button" parent="."]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 231.0
+offset_right = 301.0
+offset_bottom = 262.0
+text = "Break"
+
+[node name="BtnReset" type="Button" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 263.0
+offset_right = 302.0
+offset_bottom = 294.0
+text = "Reset"
+
+[connection signal="pressed" from="BtnBreak" to="." method="_on_btn_break_pressed"]
+[connection signal="pressed" from="BtnReset" to="." method="_on_btn_reset_pressed"]
