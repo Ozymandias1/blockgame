@@ -1,11 +1,12 @@
 extends Control
 
-@onready var placed_blocks = $PlacedBlocks
 @onready var board = $Board
 @onready var pause_screen = $Pause
 @onready var timer = $Timer
+@onready var label_score_value = $TopMenu/Gameplay_Menu_Bar/HBox_Score_Container/Label_Score_Value
 @onready var label_time_value = $TopMenu/Gameplay_Menu_Bar/HBox_Time_Container/Label_Time_Value
 @onready var menu_controller = $"../../MenuController"
+@onready var placed_blocks = $PlacedBlocks
 @onready var placable_block_area = $PlacableBlockArea
 
 @export var placable_blocks: Array[PackedScene]
@@ -104,9 +105,9 @@ func create_placable_blocks():
 		placable_block_area.add_child(new_block)
 
 # 블럭의 배치 가능 여부를 판별
-func check_is_placeable(item_board_index: Vector2i):
+func check_is_placeable(target_block, item_board_index: Vector2i):
 	# 일단은 테스트 블럭으로
-	var block_indices = current_block.block_indices
+	var block_indices = target_block.block_indices
 	var matchCount = 0
 	for p in block_indices:
 		var check_point = Vector2i(item_board_index.x + p.x, item_board_index.y + p.y)
@@ -133,7 +134,7 @@ func _on_board_item_mouse_entered(item):
 	# 배치가 가능하면 보드항목의 위치값으로 설정하고 아니면 마우스 좌표를 따라다니도록 한다
 	if is_instance_valid(current_block):
 		var item_board_index = item.get_meta("BoardIndex")
-		if check_is_placeable(item_board_index):
+		if check_is_placeable(current_block, item_board_index):
 			current_block_target_position = item.global_position
 			current_block_target_position.x -= 29
 			current_block_target_position.y -= 29
@@ -264,5 +265,14 @@ func check_complete_line():
 
 # 게임 오버 조건 확인
 func check_gameover():
-	print('check_gameover() called, placable_block_area.get_children() size: [%s]' % placable_block_area.get_children().size())
-	pass
+	# 배치 대기중인 블럭들을 배치 가능한 곳이 있는지 확인
+	for block in placable_block_area.get_children():
+		for index_key in board_available_map.keys():
+			if board_available_map[index_key]: # 배치가 가능한 인덱스라면
+				# 블럭 인덱스로 체크하여 배치가능하다면 게임오버가 아니라고 판단
+				if check_is_placeable(block, index_key):
+					return false
+	
+	# 코드가 여기까지오면 배치가능한곳이 없으므로 게임오버로 판단한다
+	print('game is over')
+	return true

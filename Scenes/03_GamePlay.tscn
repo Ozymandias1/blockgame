@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=23 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://b2pws33hhvvkd" path="res://Prefabs/Blocks/block_type_16.tscn" id="19_3s0ba"]
 [ext_resource type="PackedScene" uid="uid://dhlcf1ajj0oq6" path="res://Prefabs/Blocks/block_type_17.tscn" id="20_8p0m4"]
 [ext_resource type="PackedScene" uid="uid://c5kgs1am783rc" path="res://Prefabs/Blocks/block_type_18.tscn" id="21_xgrnr"]
+[ext_resource type="PackedScene" uid="uid://dug3wdevvgkwf" path="res://Scenes/06_GameOver.tscn" id="22_e8lab"]
 
 [node name="Gameplay" type="Control"]
 layout_mode = 3
@@ -127,6 +128,10 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Pause" parent="." instance=ExtResource("2_oeh2c")]
+visible = false
+layout_mode = 1
+
+[node name="GameOverScreen" parent="." instance=ExtResource("22_e8lab")]
 visible = false
 layout_mode = 1
 
