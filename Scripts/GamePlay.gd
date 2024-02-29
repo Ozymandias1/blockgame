@@ -245,8 +245,7 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
-					placed_blocks.remove_child(delete_node)
-					delete_node.queue_free()
+					delete_node.do_break_vfx()
 					board_available_map[Vector2i(x, y)] = true
 	# 세로줄 확인
 	for x in board_size:
@@ -264,8 +263,7 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
-					placed_blocks.remove_child(delete_node)
-					delete_node.queue_free()
+					delete_node.do_break_vfx()
 					board_available_map[Vector2i(x, y)] = true
 
 # 게임 오버 조건 확인
