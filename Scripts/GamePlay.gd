@@ -229,6 +229,8 @@ func claer_placed_blocks():
 
 # 채워진 라인 확인
 func check_complete_line():
+	var break_delay: float = 0.0
+	var break_delay_interval: float = 0.01
 	# 가로줄 확인
 	for y in board_size:
 		var counter = 0
@@ -245,9 +247,9 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
-					placed_blocks.remove_child(delete_node)
-					delete_node.queue_free()
+					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
+					break_delay += break_delay_interval
 	# 세로줄 확인
 	for x in board_size:
 		var counter = 0
@@ -264,9 +266,9 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
-					placed_blocks.remove_child(delete_node)
-					delete_node.queue_free()
+					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
+					break_delay += break_delay_interval
 
 # 게임 오버 조건 확인
 func check_gameover():
