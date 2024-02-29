@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwc5uivfpyiy5"]
+[gd_scene load_steps=6 format=3 uid="uid://cwc5uivfpyiy5"]
 
-[ext_resource type="Texture2D" uid="uid://dk7o1ak6dqqmc" path="res://Textures/element_blue_square.png" id="1_gsj8o"]
-[ext_resource type="Script" path="res://Scripts/testscene.gd" id="1_l2ra2"]
+[ext_resource type="Script" path="res://Scripts/block_vfx_testscene.gd" id="1_l2ra2"]
 [ext_resource type="Texture2D" uid="uid://b6ljuns0i4b7d" path="res://Textures/element_red_square.png" id="3_fh02t"]
+[ext_resource type="PackedScene" uid="uid://d4fidg674hyot" path="res://Prefabs/Blocks/block_break_vfx.tscn" id="4_cgxgm"]
+[ext_resource type="PackedScene" uid="uid://dq7rvhq7u008p" path="res://Prefabs/Blocks/block_element.tscn" id="4_rje7c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upyql"]
 size = Vector2(15, 15)
@@ -19,33 +20,8 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_l2ra2")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 1
-layout_mode = 0
-offset_left = 144.0
-offset_top = 230.0
-offset_right = 174.0
-offset_bottom = 260.0
-texture = ExtResource("1_gsj8o")
-expand_mode = 2
-
-[node name="LeftTop" type="RigidBody2D" parent="."]
-position = Vector2(151.5, 237.5)
-freeze = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftTop"]
-shape = SubResource("RectangleShape2D_upyql")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="LeftTop/CollisionShape2D"]
-texture_filter = 1
-scale = Vector2(0.468419, 0.468419)
-texture = ExtResource("3_fh02t")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="LeftTop"]
-rect = Rect2(-7.5, -7.5, 15, 15)
-
 [node name="RightTop" type="RigidBody2D" parent="."]
+visible = false
 position = Vector2(166.5, 237.5)
 freeze = true
 
@@ -61,6 +37,7 @@ texture = ExtResource("3_fh02t")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="RightTop"]
 
 [node name="LeftBottom" type="RigidBody2D" parent="."]
+visible = false
 position = Vector2(151.5, 252.5)
 freeze = true
 
@@ -76,6 +53,7 @@ texture = ExtResource("3_fh02t")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="LeftBottom"]
 
 [node name="RightBottom" type="RigidBody2D" parent="."]
+visible = false
 position = Vector2(166.5, 252.5)
 freeze = true
 
@@ -105,6 +83,16 @@ offset_top = 263.0
 offset_right = 302.0
 offset_bottom = 294.0
 text = "Reset"
+
+[node name="BlockVFXElement" parent="." instance=ExtResource("4_cgxgm")]
+position = Vector2(148, 159)
+
+[node name="BlockElement" parent="." instance=ExtResource("4_rje7c")]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 209.0
+offset_right = 166.0
+offset_bottom = 239.0
 
 [connection signal="pressed" from="BtnBreak" to="." method="_on_btn_break_pressed"]
 [connection signal="pressed" from="BtnReset" to="." method="_on_btn_reset_pressed"]
