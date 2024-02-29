@@ -8,7 +8,8 @@ func set_opacity(opacity: float = 1.0):
 	self.modulate.a = opacity
 
 # 블럭 부시는 효과처리
-func do_break_vfx():
+func do_break_vfx(wait_seconds = 0.1):
+	await get_tree().create_timer(wait_seconds).timeout
 	# 현재 블럭 자리에 vfx용 물리 블럭 4개 생성
 	var temp_vfx_blocks = []
 	for point in Constants.BlockVFXOffsets:
