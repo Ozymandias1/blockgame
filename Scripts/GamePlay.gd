@@ -14,6 +14,7 @@ extends Control
 var current_block: Control;
 var current_block_target_position: Vector2
 var current_block_has_target: bool
+var current_score: int = 0
 
 const BOARD_ITEM = preload("res://Prefabs/board_item.tscn")
 var board_size: int:
@@ -162,6 +163,10 @@ func _on_board_item_gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			if is_instance_valid(current_block) and current_block_has_target:
+				# 점수 업데이트
+				current_score += current_block.score
+				update_score_label_text()
+				# 인덱스에 따른 배치 처리
 				var current_block_board_item_index = current_block.get_meta("BoardItemIndex")
 				mark_unavailable(current_block_board_item_index)
 				break_current_block(current_block_board_item_index)
@@ -250,6 +255,7 @@ func check_complete_line():
 					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
+					current_score += 1
 	# 세로줄 확인
 	for x in board_size:
 		var counter = 0
@@ -269,6 +275,13 @@ func check_complete_line():
 					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
+					current_score += 1
+	# 점수 텍스트 업데이트
+	update_score_label_text()
+
+# 점수 텍스트 업데이트
+func update_score_label_text():
+	label_score_value.text = str(current_score)
 
 # 게임 오버 조건 확인
 func check_gameover():

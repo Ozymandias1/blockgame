@@ -6,6 +6,9 @@ var block_indices: Array[Vector2i]:
 		for child in self.get_children():
 			collected_indices.append(child.block_index)
 		return collected_indices
+var score: int:
+	get:
+		return block_indices.size() # 블럭 개수가 이 블럭의 기본 점수가 됨
 		
 func _ready():
 	set_opacity(0.5)
