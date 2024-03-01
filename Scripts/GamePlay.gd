@@ -16,6 +16,7 @@ var current_block_target_position: Vector2
 var current_block_has_target: bool
 var current_score: int = 0
 
+const COMBOTEXT = preload("res://Prefabs/combotext.tscn")
 const BOARD_ITEM = preload("res://Prefabs/board_item.tscn")
 var board_size: int:
 	get:
@@ -43,6 +44,7 @@ func init_board():
 	pause_screen.visible = false
 	game_over_screen.visible = false
 	label_time_value.text = "00:00"
+	current_score = 0
 	
 	# 이전에 생성되어 있던 보드판 항목 제거
 	for item in board.get_children():
@@ -103,11 +105,15 @@ func create_placable_blocks():
 		placable_block_area.remove_child(item)
 		item.queue_free()
 	# 새 배치용 블럭 생성
+	var ff = true;
 	for i in range(3):
-		var new_block_source = placable_blocks.pick_random()
+		var indexaddsub = 1 if ff else 2
+		var new_block_source = placable_blocks[placable_blocks.size()-indexaddsub]#placable_blocks.pick_random()
 		var new_block = new_block_source.instantiate()
 		new_block.gui_input.connect(_on_placable_block_gui_input.bind(new_block))
 		placable_block_area.add_child(new_block)
+		
+		ff = !ff
 
 # 블럭의 배치 가능 여부를 판별
 func check_is_placeable(target_block, item_board_index: Vector2i):
@@ -236,6 +242,7 @@ func claer_placed_blocks():
 func check_complete_line():
 	var break_delay: float = 0.0
 	var break_delay_interval: float = 0.01
+	var combo_ratio = 1;
 	# 가로줄 확인
 	for y in board_size:
 		var counter = 0
@@ -252,10 +259,16 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
+					# 마지막줄이면 콤보 라벨 생성
+					if x == board_size-1:
+						await get_tree().create_timer(break_delay).timeout
+						create_combo_label(combo_ratio, delete_node.global_position)
+					# 블럭 제거 및 점수 계산 처리
 					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
-					current_score += 1
+					current_score += 1 * combo_ratio
+			combo_ratio += 1
 	# 세로줄 확인
 	for x in board_size:
 		var counter = 0
@@ -272,10 +285,15 @@ func check_complete_line():
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
 				if is_instance_valid(delete_node):
+					# 마지막줄이면 콤보 라벨 생성
+					if y == board_size-1:
+						await get_tree().create_timer(break_delay).timeout
+						create_combo_label(combo_ratio, delete_node.global_position)
 					delete_node.do_break_vfx(break_delay)
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
-					current_score += 1
+					current_score += 1 * combo_ratio
+			combo_ratio += 1
 	# 점수 텍스트 업데이트
 	update_score_label_text()
 
@@ -300,3 +318,11 @@ func check_gameover():
 func show_gameover_screen():
 	game_over_screen.visible = true
 	timer.paused = true
+
+# 콤보 텍스트 생성
+func create_combo_label(ratio, target_pos):
+	var label = COMBOTEXT.instantiate()
+	label.global_position = target_pos
+	label.call_deferred("set_combo_text", ratio)
+	get_tree().get_root().add_child(label)
+	pass
