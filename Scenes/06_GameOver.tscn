@@ -43,6 +43,11 @@ text = "LOCALE_GAMEOVER"
 label_settings = SubResource("LabelSettings_b24ba")
 horizontal_alignment = 1
 
+[node name="Label_FinalScore" type="Label" parent="Buttons"]
+layout_mode = 2
+text = "LOCALE_SCORE"
+horizontal_alignment = 1
+
 [node name="Btn_ReturnToMainMenu" type="Button" parent="Buttons"]
 layout_mode = 2
 text = "LOCALE_RETURNTOMAINMENU"

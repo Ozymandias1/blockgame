@@ -8,6 +8,7 @@ func set_opacity(opacity: float = 1.0):
 	self.modulate.a = opacity
 
 # 블럭 부시는 효과처리
+# 딜레이 적용 참고: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#awaiting-for-signals-or-coroutines
 func do_break_vfx(wait_seconds = 0.1):
 	await get_tree().create_timer(wait_seconds).timeout
 	# 현재 블럭 자리에 vfx용 물리 블럭 4개 생성
