@@ -323,3 +323,24 @@ func create_combo_label(ratio, target_pos):
 	label.call_deferred("set_combo_text", ratio)
 	get_tree().get_root().add_child(label)
 	pass
+
+# 블럭 배치 작업 취소
+func cancel_place_block():
+	if is_instance_valid(current_block):
+		# 마우스를 따라다니는 배치 대기중인 블럭을 배치용 블럭 컨테이너로 다시 집어 넣는다.
+		current_block.set_opacity(0.5)
+		current_block.mouse_filter = Control.MOUSE_FILTER_STOP
+		current_block.get_parent().remove_child(current_block)
+		placable_block_area.add_child(current_block)
+		current_block = null
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.is_released() and event.keycode == KEY_ESCAPE:
+			cancel_place_block()
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+			cancel_place_block()
+		
