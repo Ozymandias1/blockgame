@@ -105,15 +105,11 @@ func create_placable_blocks():
 		placable_block_area.remove_child(item)
 		item.queue_free()
 	# 새 배치용 블럭 생성
-	var ff = true;
 	for i in range(3):
-		var indexaddsub = 1 if ff else 2
-		var new_block_source = placable_blocks[placable_blocks.size()-indexaddsub]#placable_blocks.pick_random()
+		var new_block_source = placable_blocks.pick_random()
 		var new_block = new_block_source.instantiate()
 		new_block.gui_input.connect(_on_placable_block_gui_input.bind(new_block))
 		placable_block_area.add_child(new_block)
-		
-		ff = !ff
 
 # 블럭의 배치 가능 여부를 판별
 func check_is_placeable(target_block, item_board_index: Vector2i):
@@ -316,6 +312,7 @@ func check_gameover():
 
 # 게임오버 스크린 보기
 func show_gameover_screen():
+	game_over_screen.get_node("Buttons/Label_FinalScore").text = tr("LOCALE_SCORE") + str(current_score)
 	game_over_screen.visible = true
 	timer.paused = true
 
