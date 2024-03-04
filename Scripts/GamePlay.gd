@@ -27,6 +27,8 @@ var current_block: Control;
 var current_block_target_position: Vector2
 var current_block_has_target: bool
 var current_score: int = 0
+var combo_ratio = 1;
+var combo_reset_counter = 0
 
 const COMBOTEXT = preload("res://Prefabs/combotext.tscn")
 const BOARD_ITEM = preload("res://Prefabs/board_item.tscn")
@@ -67,6 +69,7 @@ func init_board():
 	game_over_screen.visible = false
 	label_time_value.text = "00:00"
 	current_score = 0
+	combo_ratio = 1
 	
 	# 이전에 생성되어 있던 보드판 항목 제거
 	for item in board.get_children():
@@ -127,8 +130,9 @@ func create_placable_blocks():
 		placable_block_area.remove_child(item)
 		item.queue_free()
 	# 새 배치용 블럭 생성
+	var test = [placable_blocks[placable_blocks.size()-1], placable_blocks[placable_blocks.size()-2]]
 	for i in range(3):
-		var new_block_source = placable_blocks.pick_random()
+		var new_block_source = test.pick_random()#placable_blocks.pick_random()
 		var new_block = new_block_source.instantiate()
 		new_block.gui_input.connect(_on_placable_block_gui_input.bind(new_block))
 		placable_block_area.add_child(new_block)
@@ -200,11 +204,21 @@ func _on_board_item_gui_input(event: InputEvent):
 				if placable_block_area.get_child_count() == 0:
 					create_placable_blocks()
 				# 채워진 줄이 있는지 체크한다.
-				check_complete_line()
+				if await check_complete_line():
+					combo_reset_counter += 1 # 채워진 줄이 없는 경우가 3번이상인경우 콤보 배율 리셋 처리
+					if combo_reset_counter == 3:
+						# 리셋 체크를 하는 시점에서 이전 콤보 배율이 1이 아닌 경우가 리셋이 되는 경우이므로 텍스트를 띄워 알린다
+						if combo_ratio != 1: 
+							create_combo_reset_label(get_global_mouse_position())
+						combo_ratio = 1
+						combo_reset_counter = 0
+				else:
+					combo_reset_counter = 0
 				# 게임오버를 체크한다.
 				if check_gameover():
 					show_gameover_screen()
-
+					
+				print('combo_ratio: %s, combo_reset_counter: %s' % [combo_ratio, combo_reset_counter])
 # 보드판 크기변경 시그널
 func _on_board_resized():
 	# 배치용 블럭 공간 컨트롤 위치 조정
@@ -260,10 +274,10 @@ func claer_placed_blocks():
 		child.queue_free()
 
 # 채워진 라인 확인
-func check_complete_line():
+func check_complete_line() -> bool:
 	var break_delay: float = 0.0
 	var break_delay_interval: float = 0.01
-	var combo_ratio = 1;
+	var is_combo_reset = true
 	# 가로줄 확인
 	for y in board_size:
 		var counter = 0
@@ -276,6 +290,7 @@ func check_complete_line():
 		# 채워진 가로줄이 있다면 x,y인덱스에 해당하는 이름의 노드를 찾아 제거하고
 		# 인덱스에 해당하는 부분을 배치 가능상태로 전환한다.
 		if counter == board_size:
+			is_combo_reset = false
 			for x in board_size:
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
@@ -303,6 +318,7 @@ func check_complete_line():
 		# 채워진 세로줄이 있다면 x,y인덱스에 해당하는 이름의 노드를 찾아 제거하고
 		# 인덱스에 해당하는 부분을 배치 가능상태로 전환한다.
 		if counter == board_size:
+			is_combo_reset = false
 			for y in board_size:
 				var target_node_name = "%s_%s" % [x, y]
 				var delete_node = placed_blocks.get_node(target_node_name)
@@ -319,6 +335,8 @@ func check_complete_line():
 			combo_ratio += 1
 	# 점수 텍스트 업데이트
 	update_score_label_text()
+	# 콤보 리셋 여부 반환
+	return is_combo_reset
 
 # 점수 텍스트 업데이트
 func update_score_label_text():
@@ -347,9 +365,15 @@ func show_gameover_screen():
 func create_combo_label(ratio, target_pos):
 	var label = COMBOTEXT.instantiate()
 	label.global_position = target_pos
-	label.call_deferred("set_combo_text", ratio)
+	label.call_deferred("set_combo_text_by_ratio", ratio)
 	get_tree().get_root().add_child(label)
-	pass
+
+# 콤보 리셋 알림 텍스트 생성
+func create_combo_reset_label(target_pos):
+	var label = COMBOTEXT.instantiate()
+	label.global_position = target_pos
+	label.call_deferred("set_text", "COMBO RESET")
+	get_tree().get_root().add_child(label)
 
 # 블럭 배치 작업 취소
 func cancel_place_block():
