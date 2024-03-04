@@ -6,6 +6,7 @@ extends Node
 @onready var option = $"../MenuList/Option"
 @onready var fade_anim_player = $"../FadeAnimPlayer"
 @onready var panel_fade = $"../Panel_Fade"
+@onready var sfx_menu_click = $"../SFX_Menu_Click"
 
 var current_menu
 var change_target_menu
@@ -19,11 +20,13 @@ func _ready():
 	current_menu.visible = true
 
 # 메뉴 변경 함수
+# 오디오 파일 재생 참고: https://www.youtube.com/watch?v=30fCw3qZCNw
 func change_menu(page: Constants.MenuPage):
 	# 메뉴의 visible설정을 바로 바꾸지 말고 페이드아웃/인 효과를 적용
 	change_target_menu = page
 	fade_anim_player.play("FadeOut")
 	panel_fade.visible = true
+	sfx_menu_click.play() # 사운드 재생
 
 # 메뉴 변경시 플레이되는 페이드아웃 애니메이션 종료때 호출되는 함수
 func _on_fade_out_complete():

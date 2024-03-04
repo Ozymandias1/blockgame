@@ -10,6 +10,18 @@ extends Control
 @onready var placed_blocks = $PlacedBlocks
 @onready var placable_block_area = $PlacableBlockArea
 
+@onready var sfx_block_place_0 = $"../../SFX_Block_Place_0"
+@onready var sfx_block_place_1 = $"../../SFX_Block_Place_1"
+@onready var sfx_block_place_2 = $"../../SFX_Block_Place_2"
+var sfx_block_place_list: Array[AudioStreamPlayer]
+
+@onready var sfx_block_break_0 = $"../../SFX_Block_Break_0"
+@onready var sfx_block_break_1 = $"../../SFX_Block_Break_1"
+@onready var sfx_block_break_2 = $"../../SFX_Block_Break_2"
+@onready var sfx_block_break_3 = $"../../SFX_Block_Break_3"
+@onready var sfx_block_break_4 = $"../../SFX_Block_Break_4"
+var sfx_block_break_list: Array[AudioStreamPlayer]
+
 @export var placable_blocks: Array[PackedScene]
 var current_block: Control;
 var current_block_target_position: Vector2
@@ -33,6 +45,16 @@ func _ready():
 	game_over_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
 	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
+	
+	sfx_block_place_list.append(sfx_block_place_0)
+	sfx_block_place_list.append(sfx_block_place_1)
+	sfx_block_place_list.append(sfx_block_place_2)
+	
+	sfx_block_break_list.append(sfx_block_break_0)
+	sfx_block_break_list.append(sfx_block_break_1)
+	sfx_block_break_list.append(sfx_block_break_2)
+	sfx_block_break_list.append(sfx_block_break_3)
+	sfx_block_break_list.append(sfx_block_break_4)
 
 # 업데이트
 func _process(delta):
@@ -172,6 +194,8 @@ func _on_board_item_gui_input(event: InputEvent):
 				var current_block_board_item_index = current_block.get_meta("BoardItemIndex")
 				mark_unavailable(current_block_board_item_index)
 				break_current_block(current_block_board_item_index)
+				# 배치시 사운드 효과 재생
+				sfx_block_place_list.pick_random().play()
 				# 보드판에 배치후에 배치대기중인 블럭이 없다면 새로 생성한다.
 				if placable_block_area.get_child_count() == 0:
 					create_placable_blocks()
@@ -262,6 +286,7 @@ func check_complete_line():
 						create_combo_label(combo_ratio, delete_node.global_position)
 					# 블럭 제거 및 점수 계산 처리
 					delete_node.do_break_vfx(break_delay)
+					sfx_block_break_list.pick_random().play()
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
 					current_score += 1 * combo_ratio
@@ -287,6 +312,7 @@ func check_complete_line():
 						await get_tree().create_timer(break_delay).timeout
 						create_combo_label(combo_ratio, delete_node.global_position)
 					delete_node.do_break_vfx(break_delay)
+					sfx_block_break_list.pick_random().play()
 					board_available_map[Vector2i(x, y)] = true
 					break_delay += break_delay_interval
 					current_score += 1 * combo_ratio
