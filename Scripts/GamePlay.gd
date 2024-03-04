@@ -190,14 +190,15 @@ func _on_board_resized():
 func _on_placable_block_gui_input(event: InputEvent, target):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-			if not is_instance_valid(current_block):
-				current_block = target
-				current_block.mouse_filter = MOUSE_FILTER_IGNORE
-				current_block_has_target = false
-				# 배치용 블럭 컨테이너에서 게임플레이 루트 씬으로 부모 노드를 변경한다.
-				current_block.get_parent().remove_child(current_block)
-				placed_blocks.add_child(current_block)
-				update_placable_block_location()
+			if is_instance_valid(current_block): # 들고 있는 블럭이 있는 경우 먼저 취소하고 블럭 들기 작업 수행
+				cancel_place_block()
+			current_block = target
+			current_block.mouse_filter = MOUSE_FILTER_IGNORE
+			current_block_has_target = false
+			# 배치용 블럭 컨테이너에서 게임플레이 루트 씬으로 부모 노드를 변경한다.
+			current_block.get_parent().remove_child(current_block)
+			placed_blocks.add_child(current_block)
+			update_placable_block_location()
 
 # 블럭 배치시 블럭 인덱스에 해당하는 부분에 사용 불가능 여부를 체크한다.
 func mark_unavailable(targetIndex: Vector2i):
