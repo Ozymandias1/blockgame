@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddqoe0xb40d2x"]
+[gd_scene load_steps=21 format=3 uid="uid://ddqoe0xb40d2x"]
 
 [ext_resource type="Script" path="res://Scripts/MenuController.gd" id="1_5nate"]
 [ext_resource type="Script" path="res://Scripts/OptionController.gd" id="1_a36s8"]
@@ -6,6 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://ymtiista3jxq" path="res://Scenes/02_SetGameCondition.tscn" id="3_42rd7"]
 [ext_resource type="PackedScene" uid="uid://divs3j57r5cw2" path="res://Scenes/03_GamePlay.tscn" id="4_m7wh1"]
 [ext_resource type="PackedScene" uid="uid://b6rjnkmuycudp" path="res://Scenes/04_Option.tscn" id="5_aj8u8"]
+[ext_resource type="AudioStream" uid="uid://dwqb3pfl3vjo4" path="res://SFX/menu_click.ogg" id="7_ntgdg"]
+[ext_resource type="AudioStream" uid="uid://dd4rot4gjwpfn" path="res://SFX/block_place_0.ogg" id="8_ajv83"]
+[ext_resource type="AudioStream" uid="uid://clgiyyxt8nsl4" path="res://SFX/block_place_1.ogg" id="9_vqcnh"]
+[ext_resource type="AudioStream" uid="uid://d0gqontj3wc1b" path="res://SFX/block_place_2.ogg" id="10_w0881"]
+[ext_resource type="AudioStream" uid="uid://beku6dmub30l2" path="res://SFX/block_break_0.ogg" id="11_kdrde"]
+[ext_resource type="AudioStream" uid="uid://dkmyvl867b1qx" path="res://SFX/block_break_1.ogg" id="12_byeoe"]
+[ext_resource type="AudioStream" uid="uid://dy2uvxlcbnbha" path="res://SFX/block_break_2.ogg" id="13_qds40"]
+[ext_resource type="AudioStream" uid="uid://dnfviwvjwtmwv" path="res://SFX/block_break_3.ogg" id="14_asy02"]
+[ext_resource type="AudioStream" uid="uid://c7jil10pu3odn" path="res://SFX/block_break_4.ogg" id="15_jmnfg"]
 
 [sub_resource type="Animation" id="Animation_6snjo"]
 resource_name = "FadeIn"
@@ -177,3 +186,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_exems")
+
+[node name="SFX_Menu_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ntgdg")
+
+[node name="SFX_Block_Place_0" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ajv83")
+
+[node name="SFX_Block_Place_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_vqcnh")
+
+[node name="SFX_Block_Place_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_w0881")
+
+[node name="SFX_Block_Break_0" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_kdrde")
+
+[node name="SFX_Block_Break_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_byeoe")
+
+[node name="SFX_Block_Break_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_qds40")
+
+[node name="SFX_Block_Break_3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_asy02")
+
+[node name="SFX_Block_Break_4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_jmnfg")
