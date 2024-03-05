@@ -6,7 +6,7 @@ const BLOCK_BREAK_VFX = preload("res://Prefabs/Blocks/block_break_vfx.tscn")
 # 블럭 텍스쳐 투명도 설정
 func set_opacity(opacity: float = 1.0):
 	self.modulate.a = opacity
-
+	
 # 블럭 부시는 효과처리
 # 딜레이 적용 참고: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#awaiting-for-signals-or-coroutines
 func do_break_vfx(wait_seconds = 0.1):
@@ -16,6 +16,7 @@ func do_break_vfx(wait_seconds = 0.1):
 	for point in Constants.BlockVFXOffsets:
 		var vfx = BLOCK_BREAK_VFX.instantiate()
 		get_tree().get_root().add_child(vfx)
+		vfx.get_node("CollisionShape2D/Sprite2D").texture = self.texture
 		vfx.global_position = self.global_position
 		vfx.global_position += point
 		temp_vfx_blocks.append(vfx)

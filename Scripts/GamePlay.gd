@@ -218,7 +218,6 @@ func _on_board_item_gui_input(event: InputEvent):
 				if check_gameover():
 					show_gameover_screen()
 					
-				print('combo_ratio: %s, combo_reset_counter: %s' % [combo_ratio, combo_reset_counter])
 # 보드판 크기변경 시그널
 func _on_board_resized():
 	# 배치용 블럭 공간 컨트롤 위치 조정
