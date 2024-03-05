@@ -59,7 +59,7 @@ func _ready():
 	sfx_block_break_list.append(sfx_block_break_4)
 
 # 업데이트
-func _process(delta):
+func _process(_delta):
 	update_placable_block_location()
 
 # 보드판 초기화
@@ -209,7 +209,7 @@ func _on_board_item_gui_input(event: InputEvent):
 					if combo_reset_counter == 3:
 						# 리셋 체크를 하는 시점에서 이전 콤보 배율이 1이 아닌 경우가 리셋이 되는 경우이므로 텍스트를 띄워 알린다
 						if combo_ratio != 1: 
-							create_combo_reset_label(get_global_mouse_position())
+							create_combo_reset_label()
 						combo_ratio = 1
 						combo_reset_counter = 0
 				else:
@@ -297,7 +297,7 @@ func check_complete_line() -> bool:
 					# 마지막줄이면 콤보 라벨 생성
 					if x == board_size-1:
 						await get_tree().create_timer(break_delay).timeout
-						create_combo_label(combo_ratio, delete_node.global_position)
+						create_combo_label(combo_ratio)
 					# 블럭 제거 및 점수 계산 처리
 					delete_node.do_break_vfx(break_delay)
 					sfx_block_break_list.pick_random().play()
@@ -325,7 +325,7 @@ func check_complete_line() -> bool:
 					# 마지막줄이면 콤보 라벨 생성
 					if y == board_size-1:
 						await get_tree().create_timer(break_delay).timeout
-						create_combo_label(combo_ratio, delete_node.global_position)
+						create_combo_label(combo_ratio)
 					delete_node.do_break_vfx(break_delay)
 					sfx_block_break_list.pick_random().play()
 					board_available_map[Vector2i(x, y)] = true
@@ -361,13 +361,13 @@ func show_gameover_screen():
 	timer.paused = true
 
 # 콤보 텍스트 생성
-func create_combo_label(ratio, target_pos):
+func create_combo_label(ratio):
 	var label = COMBOTEXT.instantiate()
 	label.call_deferred("set_combo_text_by_ratio", ratio, get_board_center_position())
 	get_tree().get_root().add_child(label)
 
 # 콤보 리셋 알림 텍스트 생성
-func create_combo_reset_label(target_pos):
+func create_combo_reset_label():
 	var label = COMBOTEXT.instantiate()
 	label.call_deferred("set_text", "COMBO RESET", get_board_center_position())
 	get_tree().get_root().add_child(label)
@@ -394,6 +394,6 @@ func _input(event):
 
 func get_board_center_position() -> Vector2:
 	var board_pos = board.global_position
-	var board_size = board.size
-	var result = Vector2(board_pos.x + (board_size.x * 0.5), board_pos.y + (board_size.y * 0.5))
+	var board_control_size = board.size
+	var result = Vector2(board_pos.x + (board_control_size.x * 0.5), board_pos.y + (board_control_size.y * 0.5))
 	return result
