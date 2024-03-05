@@ -364,15 +364,13 @@ func show_gameover_screen():
 # 콤보 텍스트 생성
 func create_combo_label(ratio, target_pos):
 	var label = COMBOTEXT.instantiate()
-	label.global_position = target_pos
-	label.call_deferred("set_combo_text_by_ratio", ratio)
+	label.call_deferred("set_combo_text_by_ratio", ratio, get_board_center_position())
 	get_tree().get_root().add_child(label)
 
 # 콤보 리셋 알림 텍스트 생성
 func create_combo_reset_label(target_pos):
 	var label = COMBOTEXT.instantiate()
-	label.global_position = target_pos
-	label.call_deferred("set_text", "COMBO RESET")
+	label.call_deferred("set_text", "COMBO RESET", get_board_center_position())
 	get_tree().get_root().add_child(label)
 
 # 블럭 배치 작업 취소
@@ -394,4 +392,9 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
 			cancel_place_block()
-		
+
+func get_board_center_position() -> Vector2:
+	var board_pos = board.global_position
+	var board_size = board.size
+	var result = Vector2(board_pos.x + (board_size.x * 0.5), board_pos.y + (board_size.y * 0.5))
+	return result
