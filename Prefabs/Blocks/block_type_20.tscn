@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://deu2cmg8y5vte"]
+
+[ext_resource type="PackedScene" uid="uid://c23lg101q4aac" path="res://Prefabs/Blocks/block_base.tscn" id="1_f702k"]
+[ext_resource type="PackedScene" uid="uid://dq7rvhq7u008p" path="res://Prefabs/Blocks/block_element.tscn" id="2_ve47g"]
+
+[node name="BlockBase" instance=ExtResource("1_f702k")]
+custom_minimum_size = Vector2(90, 90)
+
+[node name="BlockElement3" parent="." index="0" instance=ExtResource("2_ve47g")]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="BlockElement4" parent="." index="1" instance=ExtResource("2_ve47g")]
+layout_mode = 0
+offset_left = 30.0
+offset_right = 60.0
+offset_bottom = 30.0
+block_index = Vector2i(0, -1)

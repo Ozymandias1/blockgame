@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=53 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
@@ -21,7 +21,37 @@
 [ext_resource type="PackedScene" uid="uid://b2pws33hhvvkd" path="res://Prefabs/Blocks/block_type_16.tscn" id="19_3s0ba"]
 [ext_resource type="PackedScene" uid="uid://dhlcf1ajj0oq6" path="res://Prefabs/Blocks/block_type_17.tscn" id="20_8p0m4"]
 [ext_resource type="PackedScene" uid="uid://c5kgs1am783rc" path="res://Prefabs/Blocks/block_type_18.tscn" id="21_xgrnr"]
+[ext_resource type="PackedScene" uid="uid://78ocwi87pogr" path="res://Prefabs/Blocks/block_type_19.tscn" id="21_xjob8"]
+[ext_resource type="PackedScene" uid="uid://deu2cmg8y5vte" path="res://Prefabs/Blocks/block_type_20.tscn" id="22_anmsd"]
 [ext_resource type="PackedScene" uid="uid://dug3wdevvgkwf" path="res://Scenes/06_GameOver.tscn" id="22_e8lab"]
+[ext_resource type="PackedScene" uid="uid://cxnoluxfnm3il" path="res://Prefabs/Blocks/block_type_21.tscn" id="23_aomfu"]
+[ext_resource type="PackedScene" uid="uid://c8ipo2sbijwdy" path="res://Prefabs/Blocks/block_type_22.tscn" id="24_05i8a"]
+[ext_resource type="PackedScene" uid="uid://b23ssvyrm4ebq" path="res://Prefabs/Blocks/block_type_23.tscn" id="25_xofol"]
+[ext_resource type="PackedScene" uid="uid://chwl4x7jj5l8" path="res://Prefabs/Blocks/block_type_24.tscn" id="26_s8rbm"]
+[ext_resource type="PackedScene" uid="uid://d0i4cgoh3671y" path="res://Prefabs/Blocks/block_type_25.tscn" id="27_panik"]
+[ext_resource type="PackedScene" uid="uid://co8j8722w7e7f" path="res://Prefabs/Blocks/block_type_26.tscn" id="28_3gagj"]
+[ext_resource type="PackedScene" uid="uid://dhc0vfu2foops" path="res://Prefabs/Blocks/block_type_27.tscn" id="29_5chm3"]
+[ext_resource type="PackedScene" uid="uid://bblbgm28q5m1c" path="res://Prefabs/Blocks/block_type_28.tscn" id="30_mhhw7"]
+[ext_resource type="PackedScene" uid="uid://b4c7hnnltn5dq" path="res://Prefabs/Blocks/block_type_29.tscn" id="31_of31w"]
+[ext_resource type="PackedScene" uid="uid://bkn4p5ogcr55h" path="res://Prefabs/Blocks/block_type_30.tscn" id="32_1pyh5"]
+[ext_resource type="PackedScene" uid="uid://bom7bc7bai5yv" path="res://Prefabs/Blocks/block_type_31.tscn" id="33_otn5g"]
+[ext_resource type="PackedScene" uid="uid://c3u6xtq1j7qbi" path="res://Prefabs/Blocks/block_type_32.tscn" id="34_bvklc"]
+[ext_resource type="PackedScene" uid="uid://kma8xq57o227" path="res://Prefabs/Blocks/block_type_33.tscn" id="35_dnwrt"]
+[ext_resource type="PackedScene" uid="uid://dib04aehiajv5" path="res://Prefabs/Blocks/block_type_34.tscn" id="36_vbdpk"]
+[ext_resource type="PackedScene" uid="uid://58ggnhpcjmdq" path="res://Prefabs/Blocks/block_type_35.tscn" id="37_b0g1k"]
+[ext_resource type="PackedScene" uid="uid://blv6prva2wkjf" path="res://Prefabs/Blocks/block_type_36.tscn" id="38_nt0lj"]
+[ext_resource type="PackedScene" uid="uid://q2ih2ae41hqm" path="res://Prefabs/Blocks/block_type_37.tscn" id="39_1gxg7"]
+[ext_resource type="PackedScene" uid="uid://bls34x6744bn4" path="res://Prefabs/Blocks/block_type_38.tscn" id="40_rh4gj"]
+[ext_resource type="PackedScene" uid="uid://cyglgmssbn086" path="res://Prefabs/Blocks/block_type_40.tscn" id="42_uq2mp"]
+[ext_resource type="PackedScene" uid="uid://dt0v5wxd6wkgx" path="res://Prefabs/Blocks/block_type_39.tscn" id="43_koflo"]
+[ext_resource type="PackedScene" uid="uid://cok537sptw4xx" path="res://Prefabs/Blocks/block_type_41.tscn" id="43_pefyh"]
+[ext_resource type="PackedScene" uid="uid://bx3au6v8ou2os" path="res://Prefabs/Blocks/block_type_42.tscn" id="44_1scf0"]
+[ext_resource type="PackedScene" uid="uid://dmyhi2at8qlhx" path="res://Prefabs/Blocks/block_type_43.tscn" id="45_dujis"]
+[ext_resource type="PackedScene" uid="uid://6krofmkvdhfm" path="res://Prefabs/Blocks/block_type_45.tscn" id="47_cn88r"]
+[ext_resource type="PackedScene" uid="uid://djycwkrm8tguk" path="res://Prefabs/Blocks/block_type_44.tscn" id="48_c67sk"]
+[ext_resource type="PackedScene" uid="uid://mb6mo4qm0b4f" path="res://Prefabs/Blocks/block_type_47.tscn" id="49_qmrkx"]
+[ext_resource type="PackedScene" uid="uid://bj27cdjdf311k" path="res://Prefabs/Blocks/block_type_48.tscn" id="50_dk4jy"]
+[ext_resource type="PackedScene" uid="uid://bj1rfip2gpefd" path="res://Prefabs/Blocks/block_type_46.tscn" id="50_rw0tx"]
 
 [node name="Gameplay" type="Control"]
 layout_mode = 3
@@ -31,7 +61,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wjfbx")
-placable_blocks = Array[PackedScene]([ExtResource("3_vmfgw"), ExtResource("4_b7yhi"), ExtResource("5_4lrpl"), ExtResource("6_jtnrp"), ExtResource("7_yvsll"), ExtResource("8_epudl"), ExtResource("9_73kot"), ExtResource("10_tu3sv"), ExtResource("11_0arc4"), ExtResource("5_xsbgb"), ExtResource("5_6xuad"), ExtResource("14_678ew"), ExtResource("15_yqo8g"), ExtResource("16_qe4fh"), ExtResource("17_u5kvk"), ExtResource("18_1ektb"), ExtResource("19_3s0ba"), ExtResource("20_8p0m4"), ExtResource("21_xgrnr")])
+placable_blocks = Array[PackedScene]([ExtResource("3_vmfgw"), ExtResource("4_b7yhi"), ExtResource("5_4lrpl"), ExtResource("6_jtnrp"), ExtResource("7_yvsll"), ExtResource("8_epudl"), ExtResource("9_73kot"), ExtResource("10_tu3sv"), ExtResource("11_0arc4"), ExtResource("5_xsbgb"), ExtResource("5_6xuad"), ExtResource("14_678ew"), ExtResource("15_yqo8g"), ExtResource("16_qe4fh"), ExtResource("17_u5kvk"), ExtResource("18_1ektb"), ExtResource("19_3s0ba"), ExtResource("20_8p0m4"), ExtResource("21_xgrnr"), ExtResource("21_xjob8"), ExtResource("22_anmsd"), ExtResource("23_aomfu"), ExtResource("24_05i8a"), ExtResource("25_xofol"), ExtResource("26_s8rbm"), ExtResource("27_panik"), ExtResource("28_3gagj"), ExtResource("29_5chm3"), ExtResource("30_mhhw7"), ExtResource("31_of31w"), ExtResource("32_1pyh5"), ExtResource("33_otn5g"), ExtResource("34_bvklc"), ExtResource("35_dnwrt"), ExtResource("36_vbdpk"), ExtResource("37_b0g1k"), ExtResource("38_nt0lj"), ExtResource("39_1gxg7"), ExtResource("40_rh4gj"), ExtResource("43_koflo"), ExtResource("42_uq2mp"), ExtResource("43_pefyh"), ExtResource("44_1scf0"), ExtResource("45_dujis"), ExtResource("48_c67sk"), ExtResource("47_cn88r"), ExtResource("50_rw0tx"), ExtResource("49_qmrkx"), ExtResource("50_dk4jy")])
 
 [node name="TopMenu" type="Panel" parent="."]
 layout_mode = 1
