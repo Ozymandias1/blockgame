@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://divs3j57r5cw2"]
+[gd_scene load_steps=54 format=3 uid="uid://divs3j57r5cw2"]
 
 [ext_resource type="Script" path="res://Scripts/GamePlay.gd" id="1_wjfbx"]
 [ext_resource type="PackedScene" uid="uid://c8sfmcvedguns" path="res://Scenes/05_Pause.tscn" id="2_oeh2c"]
@@ -52,6 +52,7 @@
 [ext_resource type="PackedScene" uid="uid://mb6mo4qm0b4f" path="res://Prefabs/Blocks/block_type_47.tscn" id="49_qmrkx"]
 [ext_resource type="PackedScene" uid="uid://bj27cdjdf311k" path="res://Prefabs/Blocks/block_type_48.tscn" id="50_dk4jy"]
 [ext_resource type="PackedScene" uid="uid://bj1rfip2gpefd" path="res://Prefabs/Blocks/block_type_46.tscn" id="50_rw0tx"]
+[ext_resource type="Script" path="res://Scripts/GameplayTimer.gd" id="51_68rha"]
 
 [node name="Gameplay" type="Control"]
 layout_mode = 3
@@ -134,7 +135,8 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 11
 
-[node name="Timer" type="Timer" parent="."]
+[node name="GameplayTimer" type="Timer" parent="."]
+script = ExtResource("51_68rha")
 
 [node name="PlacableBlockArea" type="HBoxContainer" parent="."]
 layout_mode = 1

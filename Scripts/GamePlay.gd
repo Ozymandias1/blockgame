@@ -3,9 +3,8 @@ extends Control
 @onready var board = $Board
 @onready var pause_screen = $Pause
 @onready var game_over_screen = $GameOverScreen
-@onready var timer = $Timer
+@onready var timer = $GameplayTimer
 @onready var label_score_value = $TopMenu/Gameplay_Menu_Bar/HBox_Score_Container/Label_Score_Value
-@onready var label_time_value = $TopMenu/Gameplay_Menu_Bar/HBox_Time_Container/Label_Time_Value
 @onready var menu_controller = $"../../MenuController"
 @onready var placed_blocks = $PlacedBlocks
 @onready var placable_block_area = $PlacableBlockArea
@@ -37,7 +36,6 @@ var board_size: int:
 		return board.columns
 	set(value):
 		board.columns = value
-var game_elapsed_time: int = 0
 var board_available_map: Dictionary
 
 # 스크립트 시작
@@ -45,7 +43,6 @@ func _ready():
 	pause_screen.get_node("Buttons/Btn_Resume").pressed.connect(_on_btn_resume_pressed)
 	pause_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
 	game_over_screen.get_node("Buttons/Btn_ReturnToMainMenu").pressed.connect(_on_btn_returnToMainMenu)
-	timer.connect("timeout", _on_timer_process)
 	board.columns = 9
 	
 	sfx_block_place_list.append(sfx_block_place_0)
@@ -67,7 +64,7 @@ func init_board():
 	# 일시정지, 게임오버, 진행시간 텍스트 처리
 	pause_screen.visible = false
 	game_over_screen.visible = false
-	label_time_value.text = "00:00"
+	timer.reset_timer()
 	current_score = 0
 	combo_ratio = 1
 	
@@ -96,18 +93,9 @@ func init_board():
 
 # 게임플레이 시작
 func gameplay_start():
-	game_elapsed_time = 0
+	timer.reset_timer()
 	timer.paused = false
 	timer.start()
-	
-# 게임 진행시간 타이머 콜백 함수
-# https://forum.godotengine.org/t/how-to-convert-seconds-into-ddmm-ss-format/8174
-func _on_timer_process():
-	game_elapsed_time += 1
-	var seconds = game_elapsed_time % 60
-	var minutes = (game_elapsed_time / 60) % 60
-	var timer_string = "%02d:%02d" % [minutes, seconds]
-	label_time_value.text = timer_string
 
 # Pause 버튼 클릭 시그널
 func _on_btn_pause_pressed():
