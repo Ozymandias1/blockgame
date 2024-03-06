@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6rjnkmuycudp"]
 
-[ext_resource type="Script" path="res://Scripts/Option.gd" id="1_nmqcu"]
+[ext_resource type="Script" path="res://Scripts/OptionScreen.gd" id="1_nmqcu"]
 
 [node name="Option" type="CenterContainer"]
 offset_right = 250.0

@@ -378,7 +378,7 @@ func check_gameover() -> bool:
 #region 게임오버 스크린 표출 함수
 func show_gameover_screen():
 	# 게임오버씬 내에 최종점수를 표시한다
-	game_over_screen.get_node("Buttons/Label_FinalScore").text = tr("LOCALE_SCORE") + str(current_score)
+	game_over_screen.get_node("Buttons/Label_FinalScore").text = tr("LOCALE_FINALSCORE") + str(current_score)
 	game_over_screen.visible = true
 	timer.paused = true
 #endregion

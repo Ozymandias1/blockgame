@@ -10,6 +10,7 @@ LOCALE_BLOCKSET,Block SET: ,블록세트:
 LOCALE_VOLUME,Volume: ,볼륨: 
 LOCALE_LANGUAGE,Language: ,언어: 
 LOCALE_SCORE,Score: ,점수: 
+LOCALE_FINALSCORE,Final Score: ,최종점수: 
 LOCALE_TIME,Time: ,시간: 
 LOCALE_RESUME,Resume,재개
 LOCALE_RETURNTOMAINMENU,Return to MainMenu,메인메뉴로 가기

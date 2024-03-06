@@ -1,9 +1,11 @@
 extends Node
 
-# 스크립트 시작
+#region 스크립트 시작
 func _ready():
 	check_config_file() # 시작시 설정파일 확인
+#endregion
 
+#region 설정파일이 있는지 확인하는 함수
 # 지정된 경로에 설정파일이 있는지 확인하고
 # 설정파일이 없으면 기본값으로 지정된 설정파일을 생성한다.
 func check_config_file():
@@ -15,10 +17,12 @@ func check_config_file():
 		# 설정파일이 있다면 언어설정값을 가져와 처리한다.
 		var langCode = config.get_value("Option", "Language")
 		TranslationServer.set_locale(langCode)
+#endregion
 
-# 기본값으로 지정된 설정파일을 생성하는 함수
+#region 기본값으로 지정된 설정파일을 생성하는 함수
 func create_default_config_file():
 	var config = ConfigFile.new()
 	config.set_value("Option", "Volume", 100)
 	config.set_value("Option", "Language", "en")
 	config.save("res://Config.cfg")
+#endregion

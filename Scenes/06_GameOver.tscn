@@ -45,7 +45,7 @@ horizontal_alignment = 1
 
 [node name="Label_FinalScore" type="Label" parent="Buttons"]
 layout_mode = 2
-text = "LOCALE_SCORE"
+text = "LOCALE_FINALSCORE"
 horizontal_alignment = 1
 
 [node name="Btn_ReturnToMainMenu" type="Button" parent="Buttons"]
