@@ -1,15 +1,20 @@
 extends CenterContainer
 
+#region 변수
 @onready var menu_controller = $"../../MenuController"
+#endregion
 
-# Start Game 버튼 클릭 시그널
+#region Start Game 버튼 클릭 시그널
 func _on_btn_start_game_pressed():
 	menu_controller.change_menu(Constants.MenuPage.SetGameCondition)
+#endregion
 
-# Option 버튼 클릭 시그널
+#region Option 버튼 클릭 시그널
 func _on_btn_option_pressed():
 	menu_controller.change_menu(Constants.MenuPage.Option)
+#endregion
 
-# Quit 버튼 클릭 시그널
+#region Quit 버튼 클릭 시그널
 func _on_btn_quit_pressed():
 	get_tree().quit()
+#endregion
