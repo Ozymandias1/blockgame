@@ -11,7 +11,6 @@ func _on_option_board_size_item_selected(index):
 # Play 버튼 클릭 시그널
 func _on_btn_play_pressed():
 	menu_controller.change_menu(Constants.MenuPage.Gameplay)
-	gameplay.init_board()
 	gameplay.gameplay_start()
 
 # Back 버튼 클릭 시그널
