@@ -1,6 +1,6 @@
 extends Node
 
-#region Variables
+#region 변수
 @onready var main_menu = $"../MenuList/MainMenu"
 @onready var set_game_condition = $"../MenuList/SetGameCondition"
 @onready var gameplay = $"../MenuList/Gameplay"
@@ -13,9 +13,9 @@ var current_menu
 var change_target_menu
 #endregion
 
-#region Function: script start
+#region 스크립트 시작함수
 func _ready():
-	# At the start, each menu is hidden and only the main menu scene is visible
+	# 시작시 각 메뉴들을 숨김처리하고 메인메뉴씬만 보이도록 처리한다
 	set_game_condition.visible = false;
 	gameplay.visible = false;
 	option.visible = false;
@@ -23,19 +23,19 @@ func _ready():
 	current_menu.visible = true
 #endregion
 
-#region Function: change menu
-# reference for play audio: https://www.youtube.com/watch?v=30fCw3qZCNw
+#region 메뉴 변경 함수
+# 오디오 파일 재생 참고: https://www.youtube.com/watch?v=30fCw3qZCNw
 func change_menu(page: Constants.MenuPage):
-	# Change the Visible setting of the menu by applying the fade-out/in effect instead of changing it immediately
+	# 메뉴의 visible설정을 바로 바꾸지 말고 페이드아웃/인 효과를 적용하여 변경한다
 	change_target_menu = page
 	fade_anim_player.play("FadeOut")
 	panel_fade.visible = true
-	sfx_menu_click.play() # sfx play
+	sfx_menu_click.play() # 사운드 재생
 #endregion
 
-#region Function: called when fade-out animation finished
+#region 메뉴 변경시 플레이되는 페이드아웃 애니메이션 종료때 호출되는 함수
 func _on_fade_out_complete():
-	# hide current menu and show target menu
+	# 현재 메뉴를 숨기고 변경할 메뉴로 교체한다
 	current_menu.visible = false;
 	match change_target_menu:
 		Constants.MenuPage.MainMenu:
@@ -47,14 +47,13 @@ func _on_fade_out_complete():
 		Constants.MenuPage.Option:
 			current_menu = option
 	current_menu.visible = true
-	# play fade in animation after change menu
+	# 메뉴 교체후 페이드인 애니메이션 시작
 	fade_anim_player.play("FadeIn")
 #endregion
 
-#region Function: called when fade-in animation finished
+#region 페이드인 애니메이션 종료시 호출되는 함수
 func _on_fade_in_complete():
-	# If the panel for fade-in/out effect is visible when fade-in ends after
-	# replacing with a new menu, the controls behind it cannot process events such as clicks,
-	# so it is hidden (because the ignore setting of mouse_filter has not been set)
+	# 새 메뉴로 교체후 페이드인 종료시 페이드인/아웃 효과를 위한 패널이 보이는 상태면
+	# 뒤에있는 컨트롤들에 클릭등 이벤트 처리가 안되므로 숨김처리한다(mouse_filter의 ignore 설정을 하지 않았으므로)
 	panel_fade.visible = false
 #endregion
