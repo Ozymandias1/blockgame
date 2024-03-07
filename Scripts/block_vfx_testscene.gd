@@ -1,19 +1,11 @@
 extends Node
 
-#@onready var left_top = $LeftTop
-#@onready var right_top = $RightTop
-#@onready var left_bottom = $LeftBottom
-#@onready var right_bottom = $RightBottom
 @onready var block_element = $BlockElement
 
 const BLOCK_BREAK_VFX = preload("res://Prefabs/Blocks/block_break_vfx.tscn")
 var vfx_block_list = []
 
 func _ready():
-	#left_top.get_node("VisibleOnScreenNotifier2D").screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited.bind(left_top))
-	#right_top.get_node("VisibleOnScreenNotifier2D").screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited.bind(right_top))
-	#left_bottom.get_node("VisibleOnScreenNotifier2D").screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited.bind(left_bottom))
-	#right_bottom.get_node("VisibleOnScreenNotifier2D").screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited.bind(right_bottom))
 	var points = [
 		Vector2(7.5, 22.5),
 		Vector2(7.5, 7.5),
