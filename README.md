@@ -8,6 +8,8 @@ so i hope you understand if there is anything wrong with the project, and i hope
 
 best regards.
 
+for english users please see the english_comment branch: https://github.com/Ozymandias1/blockgame/tree/english_comment
+
 # requirements
 
 - godot 4.2.1 (https://godotengine.org/)
