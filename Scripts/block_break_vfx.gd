@@ -1,8 +1,8 @@
 extends RigidBody2D
 
-#region VisibleOnScreenNotifier2D 노드의 화면 밖으로 나갔을때의 시그널 처리
+#region Signal: called when object out of screen on VisibleOnScreenNotifier2D node
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	# 현재 노드를 부모로부터 제거하고 메모리 해제
+	# remove the current node from its parent and release memory
 	self.get_parent().remove_child(self)
 	self.queue_free()
 #endregion
